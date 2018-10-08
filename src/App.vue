@@ -1,33 +1,61 @@
 <template>
   <div id="app">
-    <!--<myHead></myHead>-->
-    <!--<navbar></navbar>-->
+    <div class="side">
+      <ion-icon @click="scrollTo('+')" v-show="down" name="arrow-down"></ion-icon>
+      <ion-icon @click="scrollTo('-')" v-show="up" name="arrow-up"></ion-icon>
+    </div>
     <router-view></router-view>
-    <!--<myFoot></myFoot>-->
   </div>
 </template>
 
 <script>
-  import  footer from './work/footer.vue'
-  import  header from './work/header.vue'
-  import  navbar from './work/navbar.vue'
-  import  main from './work/main.vue'
+
 export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      up: false,
+      down:true,
+      step: 100,
+    }
+  },
+  methods:{
+    scrollTo:function (simvol) {
+      let simvols = simvol
+      let scroll = document.body.scrollHeight
+      let pix = window.pageYOffset;
+      let steps = this.step;
+      requestAnimationFrame(to);
+      function to(){
+        if(simvols == '+'){
+          pix = pix + steps;
+          window.scrollTo(0,pix);
+          if(pix < scroll){
+            requestAnimationFrame(to);
+          }
+        } else {
+          pix = pix - steps;
+          window.scrollTo(0,pix);
+          if(pix > 0){
+            requestAnimationFrame(to);
+          }
+        }
+      }
+    },
+    scroller:function(){
+      let scroll = window.pageYOffset
+      scroll > 0?this.up = true:this.up = false
+      scroll > this.downYpage? this.down = false:this.down = true
     }
   },
   created(){
     this.$router.push({name:'catalogs'})
   },
-  // components:{
-  //   myFoot:footer,
-  //   myHead:header,
-  //   navbar:navbar,
-  //
-  // }
+  mounted(){
+    window.addEventListener('wheel',this.scroller)
+    window.addEventListener('scroll',this.scroller)
+  },
+
 }
 </script>
 
@@ -35,5 +63,28 @@ export default {
 body, html{
   margin: 0;
   padding: 0;
+}
+.side{
+  position: fixed;
+  right: 0;
+  top:45%;
+  display: flex;
+  z-index: 1000;
+  flex-direction: column-reverse;
+}
+.side ion-icon {
+  padding: 10px;
+  border: 1px solid white;
+  color: black;
+  border-radius: 50%;
+  cursor: pointer;
+  background: pink;
+  opacity: 0.6;
+}
+.side ion-icon:hover{
+  border: 1px solid black;
+  color: deeppink;
+  background: white;
+  /*opacity: 1;*/
 }
 </style>

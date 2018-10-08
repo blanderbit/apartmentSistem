@@ -23,7 +23,7 @@
       }
     },
     created(){
-      // this.$router.push({name:'main'})
+
     },
     components:{
       myFoot:footer,
