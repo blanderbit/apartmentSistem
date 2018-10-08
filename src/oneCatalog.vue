@@ -21,6 +21,7 @@
           <div class="idphoto" :style="{backgroundImage:'url('+photo+')'}">
 
           </div>
+            <calendar></calendar>
         </div>
       </div>
     </section>
@@ -32,18 +33,19 @@
   import  footer from './work/footer.vue'
   import  header from './work/header.vue'
   import  navbar from './work/navbar.vue'
+  import  calendar from './calendar.vue'
   export default {
     name: 'app',
     data () {
       return {
-        photo:null,
-        street:null,
-        star:null,
-        reviews:null,
-        allPhoto:null,
-        inf:null
-      }
-    },
+          photo: null,
+          street: null,
+          star: null,
+          reviews: null,
+          allPhoto: null,
+          inf: null
+         }
+      },
     created(){
       this.photo = sessionStorage.getItem('photo')
       this.street = sessionStorage.getItem('street')
@@ -56,13 +58,14 @@
       myFoot:footer,
       myHead:header,
       navbar:navbar,
+        calendar:calendar
     },
     computed:{
-      starFull(){console.log(this.star)
-        return this.star
+      starFull(){
+        return Number(this.star)
       },
       starNoFull(){
-        return 5 - this.star
+        return 5 - Number(this.star)
       }
     }
   }
