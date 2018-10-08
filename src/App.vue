@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <myHead></myHead>
-    <navbar></navbar>
-    <mymain></mymain>
-    <myFoot></myFoot>
+    <!--<myHead></myHead>-->
+    <!--<navbar></navbar>-->
+    <router-view></router-view>
+    <!--<myFoot></myFoot>-->
   </div>
 </template>
 
@@ -19,12 +19,15 @@ export default {
       msg: 'Welcome to Your Vue.js App'
     }
   },
-  components:{
-    myFoot:footer,
-    myHead:header,
-    navbar:navbar,
-    mymain: main
-  }
+  created(){
+    this.$router.push({name:'catalogs'})
+  },
+  // components:{
+  //   myFoot:footer,
+  //   myHead:header,
+  //   navbar:navbar,
+  //
+  // }
 }
 </script>
 

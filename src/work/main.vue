@@ -28,7 +28,6 @@
 <script>
   import aside from './aside.vue'
     export default {
-        name: "main",
       data(){
           return{
               apartments:[
