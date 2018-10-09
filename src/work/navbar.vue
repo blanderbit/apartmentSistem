@@ -28,6 +28,7 @@
     justify-content: center;
   }
   .m-container{
+    position: relative;
     width: 1200px;
     display: flex;
     margin-bottom: -1px;
@@ -36,6 +37,7 @@
     box-sizing: border-box;
   }
   .listsMenu{
+    top: 50px;
     z-index: 1000;
     padding: 0px;
     margin:0px;
@@ -97,6 +99,7 @@
     }
     .listsMenu  a {
       width: 100%;
+      padding: 5px;
       box-sizing: border-box;
       display: inline-block;
     }

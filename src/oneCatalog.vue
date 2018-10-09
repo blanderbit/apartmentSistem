@@ -16,7 +16,7 @@
                 <ion-icon name="contacts"></ion-icon>{{reviews}}
               </div>
             </div>
-             <a href="#">vibrat nomer</a>
+             <a class="buttonTo" @click="toNumber" href="#">vibrat nomer</a>
           </div>
           <div class="idphoto" :style="{backgroundImage:'url('+photo+')'}">
 
@@ -54,6 +54,21 @@
       this.allPhoto = sessionStorage.getItem('allPhoto')
       this.inf = sessionStorage.getItem('inf')
     },
+    methods:{
+      toNumber:function (simvol) {
+        let simvols = simvol
+        let scroll = document.getElementById('calendar').getBoundingClientRect().top
+        let pix = window.pageYOffset;
+        requestAnimationFrame(to);
+        function to(){
+            pix = pix + 10;
+            window.scrollTo(0,pix);
+            if(pix < scroll){
+              requestAnimationFrame(to);
+            }
+        }
+      },
+    },
     components:{
       myFoot:footer,
       myHead:header,
@@ -83,7 +98,7 @@
     display: flex;
   }
   .containerCatalogId{
-    width: 75%;
+    width: 100%;
     padding: 20px;
     background: white;
     margin: 20px 0;
@@ -94,5 +109,43 @@
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
+  }
+  .zacaz{
+    display: flex;
+    justify-content: space-between;
+  }
+  .buttonTo{
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+    background: deeppink;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    vertical-align: center;
+    align-self: center;
+    text-decoration: none;
+  }
+  .buttonTo:hover{
+    background: darkmagenta;
+  }
+  @media screen and (max-width: 1350px){
+    .containerAll{
+      width: 100%;
+    }
+    .containerCatalogId{
+      padding: 0;
+    }
+    .idphoto{
+      height: 300px;
+    }
+    .zacaz{
+      padding: 5px;
+      font-size: 10px;
+    }
+    .buttonTo{
+      width: 60px;
+      padding: 10px;
+    }
   }
 </style>

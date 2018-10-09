@@ -55,7 +55,7 @@
     .logoByProfil{
       display: flex;
       align-items: center;
-      margin-right: 5px;
+      margin-right: 5%;
     }
     .logoByProfil{
       a{

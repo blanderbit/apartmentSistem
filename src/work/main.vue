@@ -155,4 +155,25 @@
     color: white;
     font-weight: bold;
   }
+  @media screen and (max-width: 900px){
+    .container{
+      width: 100%;
+      padding: 0px;
+    }
+    .products{
+      height: 100px;}
+    .infa-products,.infa-products div{
+      padding:5px;
+      font-size: 10px;
+    }
+    .buttonProducts a{
+      width: 100%;
+      text-align: center;
+      font-size: 10px;
+      padding: 10px;text-decoration: none;
+      background: deeppink;
+      color: white;
+      font-weight: bold;
+    }
+  }
 </style>

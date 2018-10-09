@@ -71,7 +71,6 @@
   .contant_footer{
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
     align-items: baseline;
     width: 100%;
     font-size: 15px;
@@ -146,5 +145,26 @@
      border-radius: 50%;
      margin: 2px
    }
+  @media screen and (max-width: 720px){
+    .head_footer{
+      padding: 10px;
+    }
+    .contant_footer{
+      font-size: 10px;
+    }
+    .contantSotialFooter a{
+      padding: 5px;
+    }
+    .list .containerSponsor div{
+      width: 50px;
+      height: 50px;
+    }
+    .list .containarList{
+      flex-wrap: wrap;
+    }
+    .socialFooter p{
+      padding-left: 10px;
+    }
+  }
 </style>
 

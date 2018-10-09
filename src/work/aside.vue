@@ -138,4 +138,9 @@
   .containerSearch ion-icon[name="star"]{
     color:deeppink;
   }
+  @media screen and (max-width: 900px){
+    aside{
+      display: none;
+    }
+  }
 </style>
