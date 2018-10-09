@@ -75,7 +75,6 @@
     transition: all 1.2s;
   }
   @media screen and (max-width: 720px){
-
     .listsMenu{
       position: absolute;
       text-align: left;
@@ -138,7 +137,7 @@
         return this.pathTo == value?true:false
       },
       hendleResize:function(){
-        let elem = document.querySelector('.lists')
+        let elem = document.querySelector('.listsMenu')
         if(window.innerWidth > 720){
           elem.style.display = 'flex'
           elem.style.borderBottom = 'none'

@@ -9,19 +9,23 @@
                   <ion-icon name="arrow-round-forward" @click="week(9,7,'+')"></ion-icon>
                 </tr>
                 <tr class="downCalendar" >
-                    <td rowspan="5" colspan="2" class="center day">Комнаты</td>
-                    <td v-for="(dayOne,index) in day" class="center" :class="{activeDay:indexDay == index?true:false,
-                    activeflex:index2 == its2?true:false}">
+                    <td  class="center day">Комнаты</td>
+                    <td v-for="(dayOne,index) in day" class="center centerDay"
+                        :class="{activeDay:indexDay == index?true:false,
+                    activecenterDay:index == its2?true:false}"> <ion-icon name="arrow-round-back" @click="dayChange('-')"></ion-icon>
                       {{dayOne.number}} {{dayOne.day}}
+                      <ion-icon name="arrow-round-forward" @click="dayChange('+')"></ion-icon>
                     </td>
                 </tr>
                 <tr class="downCalendar" v-for="(one,index) in apartment">
-                    <td colspan="2" class="appartment center" @click="change(index)" :class="{activeflex:index2 == its2?true:false}">
+                    <td colspan="2" class="appartment center" @click="change(index)"
+                        :class="{activeflex:index2 == its2?true:false}">
                         <div>{{one.name}}</div>
                         <span>{{'('+one.inf+')'}}</span>
                     </td>
-                    <td class="appartment flex" v-for="(two,index2) in day" :class="{activeflex:index2 == its2?true:false}">
-                        <table class="order"  data="two.number" :class="{active:index == its?true:false}">
+                    <td class="appartment flex" v-for="(two,index2) in day"
+                        :class="{activeflex:index2 == its2?true:false}">
+                        <table class="order" :class="{orderActive:its == index?true:false}">
                             <tr v-for="three in timeBefore13">
                                 <td @click="time(three,one.name,two.day,two.number)"
                                     :class="{active:infOrder(three,one.name,two.day,two.number)}">
@@ -29,7 +33,7 @@
                                     <ion-icon style="font-size: 12px" name="add"></ion-icon></td>
                             </tr>
                         </table>
-                        <table class="order" :class="{active:index == its?true:false}">
+                        <table class="order" :class="{orderActive:its == index?true:false}">
                             <tr v-for="three in timeAftere13">
                                 <td class="activeOrder" @click="time(three,one.name,two.day,two.number)"
                                     :class="{active:infOrder(three,one.name,two.day,two.number)}">
@@ -55,29 +59,11 @@
         return {
           month: 'Июнь',
           allMonth: [
-            {
-              month: "Jan",
-              nDay: null,
-              lastDay: null,
-              firstDay: null
-            },
-            {month: "Feb"},
-            {month: "Mar"},
-            {month: "Apr"},
-            {month: "May"},
-            {month: "Jun"},
-            {month: "Jul"},
-            {month: "Aug"},
-            {month: "Sep"},
-            {month: "Oct"},
-            {month: "Nov"},
-            {month: "Dec"}
+            {month: "Jan",}, {month: "Feb"}, {month: "Mar"}, {month: "Apr"}, {month: "May"}, {month: "Jun"},
+            {month: "Jul"}, {month: "Aug"}, {month: "Sep"}, {month: "Oct"}, {month: "Nov"}, {month: "Dec"}
           ],
-          day: [{day: 'понедельник', number: null},
-            {day: 'вторник', number: null},
-            {day: 'среда', number: null},
-            {day: 'четверг', number: null},
-            {day: 'пятница', number: null}],
+          day: [{day: 'понедельник', number: null}, {day: 'вторник', number: null}, {day: 'среда', number: null},
+            {day: 'четверг', number: null}, {day: 'пятница', number: null}],
           indexDay: null,
           apartment: [
             {
@@ -109,14 +95,28 @@
           step:7,
           monthes:null,
           its:1,
-          its2:1,
+          its2:0,
         }
       },
       methods: {
+        dayChange(simvol){
+          if(simvol == '+'){
+            this.its2++
+            if(this.its2 == 6){
+              this.its2 = 0
+            }
+          }else{
+            this.its2--
+            if(this.its2 == -1){
+              this.its2 = 0
+            }
+          }
+        },
         change(number){
           this.its = number
         },
         week(monthes,step,simvol){
+          this.its2 = 0
           let start = 0,
             steps = 5
             if(step != undefined){
@@ -227,7 +227,7 @@
         this.year == new Date().getFullYear()
         this.idOrder = this.$router.history.current.params.id
         this.thisDay = Number(String(new Date()).split(' ')[2])
-        this.calendarBig(new Date().getFullYear(), new Date().getMonth(), new Date().getDay())
+        this.calendarBig(this.year, new Date().getMonth(), new Date().getDay())
         this.mainArr = JSON.parse(localStorage.getItem('arrOrders'))
       },
     }
@@ -275,6 +275,7 @@
 
     }
     .center{
+
       width: 20%;
         text-align: center;vertical-align: middle;
       /*align-self: center;*/
@@ -306,34 +307,63 @@
   .activeDay{
     color: darkmagenta;
   }
+    #calendar h2{
+      text-align: center;
+    }
     @media screen and (max-width: 800px){
       #calendar, td{
-        font-size: 12px;
+        font-size: 15px;
       }
       .order td{
-        background: lightgray;
-        border-collapse: collapse;
-        border-radius: 10px;
-        padding: 5px 5px;
-        font-size: 6px;
+        font-size: 15px;
       }
       .containerCalendar,.order td ion-icon,downCalendar{
-        font-size: 6px;
+        font-size: 15px;
       }
       .flex{
         display: none;
       }
-      .order{
+      .order, .order td{
         display: none;
       }
-      .active{
+      .orderActive{
+        display: table;
+      }
+      .orderActive td{
+        display: table-cell;
+      }
+      .activeTable{
+        display: flex;
+
+      }.active{
         display: flex;
 
       }.activeflex{
          display: flex;
-         width: 80%!important;
-       }.activeflex order{
+         flex-direction: column;
+         flex-wrap: wrap;
+         width: 100%!important;
+          text-align: center;
+       }
+      .activeflex order{
           display: flex;
         }
+      .centerDay{display: none;}
+      .activecenterDay{display: block;}
+      .downCalendar{
+        display: block;
+      }
+      tr{
+        border: none;
+      }
+      tr.appartment{
+        justify-content: center;
+      }
+      .center {
+        width: 100%;
+      }
+      tr .center {
+        width: 100vw;
+      }
     }
 </style>
