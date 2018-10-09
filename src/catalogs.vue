@@ -1,10 +1,10 @@
 <template>
-  <div id="app">
-    <myHead></myHead>
-    <navbar></navbar>
-    <myMain></myMain>
-    <myFoot></myFoot>
-  </div>
+   <div id="app">
+       <myHead></myHead>
+       <navbar></navbar>
+       <myMain></myMain>
+       <myFoot></myFoot>
+   </div>
 </template>
 
 <script>
@@ -16,27 +16,18 @@
   import  navbar from './work/navbar.vue'
   import  main from './work/main.vue'
   export default {
-    name: 'app',
-    data () {
-      return {
-        msg: 'Welcome to Your Vue.js App'
-      }
-    },
-    created(){
+      name: 'app',
+      data () {
+          return {
+            msg: 'Welcome to Your Vue.js App'
+          }
+      },
 
-    },
-    components:{
-      myFoot:footer,
-      myHead:header,
-      navbar:navbar,
-      myMain:main
-    }
+      components:{
+          myFoot:footer,
+          myHead:header,
+          navbar:navbar,
+          myMain:main
+      }
   }
 </script>
-
-<style lang="scss">
-  body, html{
-    margin: 0;
-    padding: 0;
-  }
-</style>

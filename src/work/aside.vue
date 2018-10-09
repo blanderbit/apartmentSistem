@@ -2,12 +2,11 @@
   <aside>
     <div class="asideContainer">
       <div class="resultSearch">
-
       </div>
-      <div class="title">
-        <ion-icon name="close"></ion-icon>
+      <div class="title" v-if="closes">
+        <ion-icon name="close" @click="close()"></ion-icon>
         <ion-icon name="cube"></ion-icon>
-        <p>Свободные komnati на любой вкус</p>
+        <p>Свободные комнаты на любой вкус</p>
       </div>
       <div class="asideSearch">
         <form action="" class="search">
@@ -53,91 +52,106 @@
             one:1,
             two:4
           },
-        ]
+        ],
+          closes:true
       }
-    }
+    },
+      methods:{
+          close:function(){
+              this.closes = false;
+          }
+      }
   }
 </script>
 
-<style leng="sass">
+<style lang="scss">
   aside{
-    width: 25%;
-    padding: 20px;
+      width: 25%;
+      padding: 20px;
   }
-  .asideContainer{
-    width: 100%;
-  }
+  aside{
+      .asideContainer{
+          width: 100%;
+      }
+    .asideContainer{
 
-  ion-icon[name="cube"]{
-    color: yellow;
-  }
-  ion-icon[name="close"]{
-     position: absolute;
-     right: 5px;
-     top:5px
-   }
-  .title{
-    position: relative;
-    padding: 10px;
-    width: 100%;
-    background: slateblue;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: white
-  }
-.asideSearch{
-  width: 100%;
-  background: white;
-  padding: 10px;
+      .title{
+        position: relative;
+        padding: 10px;
+        width: 100%;
+        background: slateblue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: white
+      }
+        .title{
+            ion-icon[name="cube"]{
+                color: yellow;
+            }
+            ion-icon[name="close"]{
+                position: absolute;
+                right: 5px;
+                top:5px;
+                cursor: pointer;
+            }
+        }
+          .asideSearch{
+            width: 100%;
+            background: white;
+            padding: 10px;
+          }
+        .asideSearch{
+            .search{
+                position: relative;
+            }
+            .search .input {
+                width: 100%;
+                height: 20%;
+                padding: 8px 37px 9px 15px;
+                -moz-box-sizing: border-box;
+                border-radius: 20px;
+                font: 13px Tahoma, Arial, sans-serif;
+                border:1px solid grey;
+                color: #555;
+                outline: none;
+                padding-left: 50px;
+            }
+            .search .input:focus {
+                box-shadow: inset 0 0 5px rgba(0,0,0,0.2), inset 0 1px 2px rgba(0,0,0,0.4);
+                background: #E8E8E8;
+                color: #333;
+            }
+            .search .submit {
+                position: absolute;
+                top:0;
+                width: 37px;
+                height: 100%;
+                cursor: pointer;
+                background: url(https://lh4.googleusercontent.com/-b-5aBxcxarY/UAfFW9lVyjI/AAAAAAAABUg/gQtEXuPuIds/s13/go.png) 50% no-repeat;
+                border:none
+            }
+        }
+        .searchStar{
+            width: 100%;
+            padding: 10px;
+            background: white;
+            border-top: 1px solid grey;
+        }
+        .searchStar{
+            .containerSearch{
+                display: flex;
+                padding: 10px;
+            }
+            .containerSearch ion-icon[name="star"]{
+                color:deeppink;
+            }
+        }
+
+    }
 }
-  .search{
-    position: relative;
-  }
-  .search .input {
-    width: 100%;
-    height: 20%;
-    padding: 8px 37px 9px 15px;
-    -moz-box-sizing: border-box;
-    border-radius: 20px;
-    font: 13px Tahoma, Arial, sans-serif;
-    border:1px solid grey;
-    color: #555;
-    outline: none;
-    padding-left: 50px;
-  }
 
 
-  .search .input:focus {
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.2), inset 0 1px 2px rgba(0,0,0,0.4);
-    background: #E8E8E8;
-    color: #333;
-  }
-
-
-  .search .submit {
-    position: absolute;
-    top:0;
-    width: 37px;
-    height: 100%;
-    cursor: pointer;
-    background: url(https://lh4.googleusercontent.com/-b-5aBxcxarY/UAfFW9lVyjI/AAAAAAAABUg/gQtEXuPuIds/s13/go.png) 50% no-repeat;
-    border:none
-  }
-  .searchStar{
-    width: 100%;
-    padding: 10px;
-    background: white;
-    border-top: 1px solid grey;
-
-  }
-  .containerSearch{
-    display: flex;
-    padding: 10px;
-  }
-  .containerSearch ion-icon[name="star"]{
-    color:deeppink;
-  }
   @media screen and (max-width: 900px){
     aside{
       display: none;

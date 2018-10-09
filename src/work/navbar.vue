@@ -64,9 +64,6 @@
     background: hotpink;
     color:white;
   }
-  .clear{
-    clear: both;
-  }
   .icon{
     font-size: 40px;
     position: relative;
@@ -112,49 +109,47 @@
     data(){
       return{
         pathTo:localStorage.getItem('path'),
-        lists:['Aviabileti', 'jd bileti', 'avtobus', 'komnati', 'oteli','transport', 'tour']
+        lists:['Авиабилеты', 'Ж/Д билеты', 'Автобусы', 'Офисы', 'Отели','Транспорт', 'Тур']
       }
     },
     methods:{
       open:function(){
         if(window.innerWidth < 720) {
-          let target = event.target
-          let elem = event.target.nextElementSibling
-          let style = getComputedStyle(elem).left
-          let position = style.indexOf('p')
-          let number = style.substr(0, position)
+          let target = event.target;
+          let elem = event.target.nextElementSibling;
+          let style = getComputedStyle(elem).left;
+          let position = style.indexOf('p');
+          let number = style.substr(0, position);
           if (number < 0) {
-            target.style.transform = 'rotate(90deg)'
-            elem.style.left = '0px'
+            target.style.transform = 'rotate(90deg)';
+            elem.style.left = '0px';
           }
           else {
-            target.style.transform = 'rotate(180deg)'
-            elem.style.left = '-725px'
+            target.style.transform = 'rotate(180deg)';
+            elem.style.left = '-725px';
           }
         }
       },
       active:function(value){
-        return this.pathTo == value?true:false
+        return this.pathTo == value?true:false;
       },
       hendleResize:function(){
-        let elem = document.querySelector('.listsMenu')
+        let elem = document.querySelector('.listsMenu');
         if(window.innerWidth > 720){
-          elem.style.display = 'flex'
-          elem.style.borderBottom = 'none'
+          elem.style.display = 'flex';
+          elem.style.borderBottom = 'none';
         }
         else{
-          elem.style.borderBottom = '1px solid lightgray'
+          elem.style.borderBottom = '1px solid lightgray';
         }
       },
       to:function(name){
-        this.$router.push({name:name})
+        this.$router.push({name:name});
       },
     },
     mounted(){
-      window.addEventListener('resize',this.hendleResize)
+      window.addEventListener('resize',this.hendleResize);
     },
-    beforeDestroy(){
 
-    }
   }
   </script>
