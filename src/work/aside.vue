@@ -6,22 +6,30 @@
       <div class="title" v-if="closes">
         <ion-icon name="close" @click="close()"></ion-icon>
         <ion-icon name="cube"></ion-icon>
-        <p>Свободные комнаты на любой вкус</p>
+        <p>Freedom appartments on all taste</p>
       </div>
       <div class="asideSearch">
         <form action="" class="search">
-          <input type="search" placeholder="Search apartments" class="input" />
+          <input type="search" v-on:input="nameStreet()" v-model="street" placeholder="Search apartments" class="input" />
           <input type="submit"  value="" class="submit" />
         </form>
       </div>
       <div class="searchStar">
-        <div class="containerSearch" v-for="stars in star">
-          <input type="checkbox"/>
-          <div>
-            <ion-icon v-for="star in stars.one" name="star"></ion-icon>
-            <ion-icon v-for="star in stars.two" name="star-outline"></ion-icon>
+        <form>
+          <div class="containerSearch" v-for="stars in star" >
+            <input type="radio" name="radio" @change="radio(stars.one)" :value="stars.one"/>
+            <div>
+              <ion-icon v-for="star in stars.one" name="star"></ion-icon>
+              <ion-icon v-for="star in stars.two" name="star-outline"></ion-icon>
+            </div>
           </div>
-        </div>
+          <div class="containerSearch">
+            <input type="radio" name="radio" @click="radio(null)" :value="null"/>
+            <div>
+              No
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </aside>
@@ -29,6 +37,7 @@
 
 <script>
   export default {
+    props:['ids'],
     data(){
       return{
         star:[
@@ -53,12 +62,54 @@
             two:4
           },
         ],
-          closes:true
+        objNumber:[
+          {
+            name:'one',
+            number:1
+          },
+          {
+            name:'two',
+            number:2
+          },
+          {
+            name:'three',
+            number:3
+          },
+          {
+            name:'four',
+            number:4
+          },
+          {
+            name:'five',
+            number:5
+          },
+        ],
+          closes:true,
+        street:null
       }
     },
       methods:{
           close:function(){
               this.closes = false;
+          },
+          radio(value){
+              let inf;
+              for(let i = 0;i < this.objNumber.length;i++){
+                  if(this.objNumber[i].number == value){
+                      inf = this.objNumber[i].name
+                  }
+              }
+              this.$emit('radioNumber',inf)
+          },
+          nameStreet(){
+              this.$emit('streetName',this.street)
+          },
+          replaceStreetInNumber(value){
+              for(let i = 0;i < this.objNumber.length;i++){
+                  if(this.objNumber[i].name == value){
+                     return this.objNumber[i].number
+                  }
+              }
           }
       }
   }

@@ -6,7 +6,7 @@
       <p>
         <slot name="information"></slot>
       </p>
-      <a href="#" @click.prevent="trues(value)">True?</a>
+      <a href="#" @click.prevent="trues(value)"><slot name="a">True</slot>?</a>
     </div>
   </div>
 </template>
@@ -121,13 +121,13 @@
     },
     methods: {
       close:function(){
-        let overlow =  document.body
-        overlow.style.overflowY = 'scroll';
+        let overlow =  document.querySelector('html')
+        overlow.style.overflowY = 'scroll'
         this.container = false;
       },
       trues(value){
         let arr = Array.isArray(this.position)
-        if(arr == true && this.position.length != 0){
+        if(arr == true && this.position.length > 1){
             let number = this.position[1]
             this.mainArr.splice(number,1)
             localStorage.setItem('arrOrders', JSON.stringify(this.mainArr));
@@ -135,7 +135,6 @@
             this.close()
             return
         }
-            console.log('add')
             let obj = JSON.parse(value)
             this.mainArr.push(obj);
             localStorage.setItem('arrOrders', JSON.stringify(this.mainArr));

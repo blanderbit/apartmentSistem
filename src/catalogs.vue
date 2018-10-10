@@ -23,7 +23,7 @@
           }
       },
       created(){
-        localStorage.setItem('path','Офисы')
+        localStorage.setItem('path','Office')
       },
       components:{
           myFoot:footer,

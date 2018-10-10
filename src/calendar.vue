@@ -1,6 +1,6 @@
 <template>
     <div id="calendar">
-        <h2>Бронирование переговорок</h2>
+        <h2>Booking appartments</h2>
         <div >
             <table class="containerCalendar ">
                 <tr class="appartment caption">
@@ -58,40 +58,40 @@
           props:['reverse'] ,
           data() {
                 return {
-                      month: 'Июнь',
+                      month: 'June',
                       allMonth: [
                         {month: "Jan",}, {month: "Feb"}, {month: "Mar"}, {month: "Apr"}, {month: "May"}, {month: "Jun"},
                         {month: "Jul"}, {month: "Aug"}, {month: "Sep"}, {month: "Oct"}, {month: "Nov"}, {month: "Dec"}
                       ],
                       day: [
-                            {day: 'понедельник', number: null}, {day: 'вторник', number: null}, {day: 'среда', number: null},
-                            {day: 'четверг', number: null}, {day: 'пятница', number: null}
+                            {day: 'Mondey', number: null}, {day: 'Tuesday', number: null}, {day: 'Webnesday', number: null},
+                            {day: 'Thursday', number: null}, {day: 'Fridey', number: null}
                         ],
                       indexDay: null,
                       apartment: [
                             {
-                                  name: 'Зеленая',
+                                  name: 'Green',
                                   color:'green',
-                                  inf: 'до 5 персон'
+                                  inf: 'Before 5 person'
                             },
                             {
-                                  name: 'Красная',
+                                  name: 'Red',
                                   color:'red',
-                                  inf: 'до 15 персон'
+                                   inf: 'Before 10 person'
                             },
                             {
-                                  name: 'Синяя',
+                                  name: 'Blue',
                                   color:'blue',
-                                  inf: 'до 25 персон'
+                                  inf: 'Before 15 person'
                             },
                             {
-                                  name: 'Оранжевая',
+                                  name: 'Orange',
                                   color:'orange',
-                                  inf: 'до 50 персон'
+                                  inf: 'Before 20 person'
                             },{
-                                  name: 'Фиолетовая',
+                                  name: 'Purple',
                                   color:'rebeccapurple',
-                                  inf: 'от 50 персон'
+                                  inf: 'Before 25 person'
                             },
                       ],
                       timeBefore13: ['09:00', '10:00', '11:00', '12:00', '13:00',],
@@ -215,9 +215,9 @@
                   let active = event.currentTarget.classList.contains('active')
                   if(active == true){
                     let position = this.remove(sent)
-                    this.$emit('object',[sent,true,'remove',position])
+                    this.$emit('object',[sent,true,'Remove',position])
                   } else {
-                    this.$emit('object',[sent,true,'add'])
+                    this.$emit('object',[sent,true,'Add'])
                     this.open()
                   }
                 },
@@ -254,7 +254,7 @@
 
                 },
                 open:function(){
-                  let overlow =  document.body
+                  let overlow =  document.querySelector('html')
                   overlow.style.overflowY = 'hidden';
                 }
               },

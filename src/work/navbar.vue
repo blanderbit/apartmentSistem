@@ -109,7 +109,7 @@
     data(){
       return{
         pathTo:localStorage.getItem('path'),
-        lists:['Авиабилеты', 'Ж/Д билеты', 'Автобусы', 'Офисы', 'Отели','Транспорт', 'Тур']
+        lists:['Air tickts', 'Railway tickets', 'Bus', 'Office', 'Hotel','Transport', 'Tour']
       }
     },
     methods:{

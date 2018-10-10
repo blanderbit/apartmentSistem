@@ -17,11 +17,11 @@
     }
   }
 
-  // Vue.config.warnHandler = function (msg, vm, trace) {
-  //   // if (msg.indexOf('ion-icon') === -1) {
-  //     console.log();
-  //   // }
-  // }
+  Vue.config.warnHandler = function (msg, vm, trace) {
+    // if (msg.indexOf('ion-icon') === -1) {
+      console.log();
+    // }
+  }
 
 export default {
   name: 'app',
@@ -62,7 +62,7 @@ export default {
       },
   },
   created(){
-      this.$router.push({name:'catalogs'});
+      this.$router.push({name:'login'});
   },
   mounted(){
       window.addEventListener('wheel',this.scroller);

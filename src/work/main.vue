@@ -1,9 +1,10 @@
 <template>
     <section>
           <div class="containerAll">
-                 <myAside></myAside>
+                 <myAside v-on:radioNumber="changesNumber($event)"
+                          @streetName="changesStreet($event)" :ids="star"></myAside>
                  <div class="container">
-                       <div class="products" v-for="one in apartments" :id="one.id">
+                       <div class="products" v-for="one in filterBy(filterBy(apartments,street),star)" :id="one.id">
                              <div class="photoProducts" :style="{backgroundImage:'url('+one.photo+')'}"
                                  @click="to(one.id,
                                  one.photo,
@@ -15,8 +16,8 @@
                              </div>
                              <div class="infa-products">
                                    <div>
-                                         <ion-icon v-for="star in Number(one.star)" name="star"></ion-icon>
-                                         <ion-icon v-for="star in 5 - Number(one.star)" name="star-outline"></ion-icon>
+                                         <ion-icon v-for="star in replaceStreetInNumber(one.star)" name="star"></ion-icon>
+                                         <ion-icon v-for="star in 5 - replaceStreetInNumber(one.star)" name="star-outline"></ion-icon>
                                    </div>
                                    <div v-if="one.street == ''||one.street == null?false:true">
                                        <span style="font-weight: bold">
@@ -35,7 +36,7 @@
                              one.star,
                              one.reviews,
                              one.allPhoto,
-                             one.inf)">vibrat nomer</a>
+                             one.inf)">Choose a number</a>
                              </div>
                        </div>
                  </div>
@@ -44,7 +45,10 @@
 </template>
 
 <script>
+  import Vue from 'vue'
   import aside from './aside.vue'
+  import filter from 'vue2-filters'
+  Vue.use(filter)
         export default {
               data(){
                   return{
@@ -53,48 +57,72 @@
                                   photo:'https://pulkovoairport.ru/r/_content/341d7a364367b658f7ed2ee3fb150944/vip1.jpg',
                                   street:'Avenu 12 old east',
                                   id:342,
-                                  star:3,
+                                  star:'three',
                                   reviews:7,
                                   inf:'',
                                   allPhoto:[],
                             },
                             {
                                   photo:'http://www.dekon.ru/files/pictures_fn_86.jpg',
-                                  star:5,
+                                  star:'five',
                                   id:421,
-                                  street:'Avenu 12 old east',
+                                  street:'Avenu 13 old east',
                                   reviews:5,
                                   inf:'',
                                   allPhoto:[],
                             },
                             {
                                   photo:'https://pulkovoairport.ru/r/_content/341d7a364367b658f7ed2ee3fb150944/vip1.jpg',
-                                  star:2,
+                                  star:'two',
                                   id:231,
-                                  street:'Avenu 12 old east',
+                                  street:'Avenu 14 old east',
                                   reviews:1,
                                   inf:'',
                                   allPhoto:[],
                             },
                             {
                                   photo:'http://www.dekon.ru/files/pictures_fn_86.jpg',
-                                  star:1,
+                                  star:'one',
                                   id:42,
-                                  street:'Avenu 12 old east',
+                                  street:'Avenu 15 old east',
                                   reviews:0,
                                   inf:'',
                                   allPhoto:[],
                             },
                             {
                                   photo:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSka6O511Zzze1LLxOfjnAdZOuW4ZlZG81Yu1CMN40XOiyeVtka7g',
-                                  star:3,
+                                  star:'three',
                                   id:543,
-                                  street:'Avenu 12 old east',
+                                  street:'Avenu 17 old east',
                                   reviews:12,
                                   inf:'',
                                   allPhoto:[],
                             }
-                      ]
+                      ],
+                      objNumber:[
+                          {
+                              name:'one',
+                              number:1
+                          },
+                          {
+                              name:'two',
+                              number:2
+                          },
+                          {
+                              name:'three',
+                              number:3
+                          },
+                          {
+                              name:'four',
+                              number:4
+                          },
+                          {
+                              name:'five',
+                              number:5
+                          },
+                      ],
+                      star:null,
+                      street:null
                   }
               },
               methods:{
@@ -106,6 +134,19 @@
                           sessionStorage.setItem('allPhoto',allPhoto);
                           sessionStorage.setItem('inf',inf);
                           this.$router.push({name:'oneCatalog', params:{id:id}});
+                    },
+                    changesNumber(value){
+                           this.star = value
+                    },
+                    changesStreet(value){
+                           this.street = value
+                    },
+                    replaceStreetInNumber(value){
+                         for(let i = 0;i < this.objNumber.length;i++){
+                             if(this.objNumber[i].name == value){
+                                return this.objNumber[i].number
+                             }
+                         }
                     }
               },
               components:{

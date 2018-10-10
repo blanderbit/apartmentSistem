@@ -3,28 +3,29 @@
       <modal :value="toValue" :activeContainer="container" :remove="position" @reversData="changeReverse($event)">
         <h3 slot="h1">{{h1}}</h3>
         <p slot="information">{{toValue}}</p>
+        <span slot="a">{{position[0]}}</span>
       </modal>
       <myHead></myHead>
       <navbar></navbar>
-      <!--<div class="back">-->
-        <!--<a href=""></a>-->
-        <!--<a href=""></a>-->
-      <!--</div>-->
       <section>
-          <div class="containerAll">
+          <div class="containerAll containerAllByOne">
+              <div class="back">
+                <a href="#" @click.prevent="back">{{path[0]}}</a>
+                <span>/ {{path[1]}}</span>
+              </div>
               <div class="containerCatalogId">
                   <div class="zacaz">
                       <div>
                           <div v-if="street == ''||street == null?false:true"><span style="font-weight: bold">Street</span> {{ street}}</div>
                           <div>
-                              <ion-icon v-for="star in starFull" name="star"></ion-icon>
-                              <ion-icon v-for="star in starNoFull" name="star-outline"></ion-icon>
+                              <ion-icon v-for="star in replaceStreetInNumber(star)" name="star"></ion-icon>
+                              <ion-icon v-for="star in 5 - replaceStreetInNumber(star)" name="star-outline"></ion-icon>
                           </div>
                           <div>
                              <ion-icon name="contacts"></ion-icon>{{reviews}}
                           </div>
                       </div>
-                      <a class="buttonTo" @click.prevent="toNumber" href="#">Выбрать номер</a>
+                      <a class="buttonTo" @click.prevent="toNumber" href="#">Choose a number</a>
                   </div>
                   <img class="idphoto" :src="photo">
                   <calendar @object="change($event)" :reverse="reverseData"></calendar>
@@ -56,10 +57,35 @@
               text:null,
               reverseData:null,
               h1:null,
-              position:[]
+              position:[],
+              path:null,
+              objNumber:[
+                {
+                  name:'one',
+                  number:1
+                },
+                {
+                  name:'two',
+                  number:2
+                },
+                {
+                  name:'three',
+                  number:3
+                },
+                {
+                  name:'four',
+                  number:4
+                },
+                {
+                  name:'five',
+                  number:5
+                },
+              ],
+
           }
       },
       created(){
+          this.path = this.$router.history.current.fullPath.split('/').splice(1)
           this.photo = sessionStorage.getItem('photo');
           this.street = sessionStorage.getItem('street');
           this.star = sessionStorage.getItem('star');
@@ -85,19 +111,30 @@
             this.reverseData = value
           },
           change(value){
-            this.position = []
-            if(value[2] == 'add'){
-              this.toValue = value[0]
-              this.container= value[1]
-              this.h1 = 'You confirm data?'
-            } else {
-              this.toValue = value[0]
-              this.container= value[1]
-              this.h1 = 'Do you want remove order?'
-              this.position.push(value[2])
-              this.position.push(value[3])
-            }
+              this.position = []
+              if(value[2] == 'Add'){
+                  this.position.push(value[2])
+                  this.toValue = value[0]
+                  this.container= value[1]
+                  this.h1 = 'You confirm data?'
+              } else {
+                  this.toValue = value[0]
+                  this.container= value[1]
+                  this.h1 = 'Do you want remove order?'
+                  this.position.push(value[2])
+                  this.position.push(value[3])
+              }
           },
+          back(){
+              this.$router.push({name:'catalogs'})
+          },
+          replaceStreetInNumber(value){
+              for(let i = 0;i < this.objNumber.length;i++){
+                  if(this.objNumber[i].name == value){
+                    return this.objNumber[i].number
+                  }
+              }
+          }
       },
       components:{
           myFoot:footer,
@@ -106,14 +143,6 @@
           calendar:calendar,
           modal:modal
       },
-      computed:{
-          starFull(){
-              return Number(this.star);
-          },
-          starNoFull(){
-              return 5 - Number(this.star);
-          }
-      }
   }
 </script>
 
@@ -125,8 +154,30 @@
       background: #ededed;
   }
   .containerAll{
+       margin-top: 20px;
       width: 1200px;
       display: flex;
+
+  }
+  .containerAllByOne{
+     flex-direction: column;
+  }
+  .back{
+      width: 200px;
+      padding: 20px;
+      background: lightcoral;
+      border-radius: 10px;
+      box-shadow: 1px 1px 1px 1px gainsboro;
+  }
+  .back{
+      a{
+          text-transform: capitalize;
+          color: rebeccapurple;
+          font-weight: bold;
+      }
+      a:hover{
+          color: slateblue;
+      }
   }
   .containerCatalogId{
       width: 100%;

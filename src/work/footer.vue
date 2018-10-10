@@ -22,10 +22,10 @@
               <hr>
               <div class="contant_footer down">
                  <div>
-                    <span style=""> &#169 </span> Все права защищены
+                    <span style=""> &#169 </span> All rights reserved
                   </div>
                   <div>
-                    Запорожье 2018
+                    Zaporozhye 2018
                   </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
     name: "footer",
     data(){
       return{
-        lists:['Билеті','Сервис','О нас','Файлі','Вакансии','Гарячие туры', 'Информация'],
+        lists:['Tickets','Service','ОAbout us','File','Vacancy','Hot tour', 'Information'],
         sdolialLofo:['logo-vk','logo-facebook','logo-skype', 'logo-instagram'],
         sponsors:['https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png',
         'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/MasterCard_logo.png/640px-MasterCard_logo.png',]
