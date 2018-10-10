@@ -9,6 +9,18 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+  Vue.config.silent = true
+  Vue.config.errorHandler = function (err, vm, info) {
+    if (err.indexOf('ion-icon') === -1) {
+      console.log('');
+    }
+  }
+  Vue.config.warnHandler = function (msg, vm, trace) {
+    if (msg.indexOf('ion-icon') === -1) {
+      console.log(msg + '' + 'this error');
+    }
+  }
 
 export default {
   name: 'app',

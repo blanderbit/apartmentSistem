@@ -19,9 +19,9 @@
                 </tr>
                 <tr class="downCalendar" v-for="(one,index) in apartment">
                     <td colspan="2" class="appartment center nameApartment" @click="change(index)"
-                        :style="{background:one.background}">
+                        :style="{color:one.background}">
                         <div>{{one.name}}</div>
-                        <span>{{'('+one.inf+')'}}</span>
+                        <span style="color: darkgrey">{{'('+one.inf+')'}}</span>
                     </td>
                     <td class="appartment flex" v-for="(two,index2) in day"
                         :class="{activeflex:index2 == its2?true:false}">
@@ -71,26 +71,26 @@
                           apartment: [
                                 {
                                       name: 'Зеленая',
-                                      background:'#b3fcd5',
+                                      background:'green',
                                       inf: 'до 5 персон'
                                 },
                                 {
                                       name: 'Красная',
-                                      background:'#ffc9d2',
+                                      background:'red',
                                       inf: 'до 15 персон'
                                 },
                                 {
                                       name: 'Синяя',
-                                      background:'#c9e0ff',
+                                      background:'blue',
                                       inf: 'до 25 персон'
                                 },
                                 {
                                       name: 'Оранжевая',
-                                      background:'#ffe8c9',
+                                      background:'orange',
                                       inf: 'до 50 персон'
                                 },{
                                       name: 'Фиолетовая',
-                                      background:'#ffc4ff',
+                                      background:'#purple',
                                       inf: 'от 50 персон'
                                 },
                           ],
@@ -139,8 +139,9 @@
                               }
                               let arr = [];
                               for(let i = this.start;i<this.steps;i++ ){
-                                    this.allMonth[monthes];
-                                    if(this.allMonth[monthes].days[i] == undefined){
+                                    // this.allMonth[monthes];
+                                    // if(this.allMonth[monthes].days[i] == undefined){
+                                    if(31== undefined){
                                         return;
                                     }
                                     arr.push(this.allMonth[monthes].days[i].day);
@@ -298,7 +299,8 @@
     .order td{
         background: #1ab876;
         border-collapse: collapse;
-        border-radius: 10px; padding: 5px 20px;
+        border-radius: 10px;
+        padding: 5px 20px;
     }
     td{
         cursor: pointer;
@@ -350,7 +352,7 @@
               display: none;
           }
           .orderActive{
-              display: table;
+              display: flex;
           }
           .orderActive td{
               display: table-cell;
@@ -367,11 +369,9 @@
           }
           tr .appartment{
               border: none;
-                    }
+          }
           .activeflex{
               display: flex;
-
-              flex-direction: column;
               flex-wrap: wrap;
               width: 100%!important;
               text-align: center;
@@ -384,11 +384,12 @@
           }
           .activecenterDay{
               display: flex;
+              align-items: center;
               justify-content: center;
           }
           .activecenterDay ion-icon{
               padding: 5px;
-              background: pink;
+              background: deeppink;
               cursor: pointer;
               margin: 0 10px;
           }
@@ -409,4 +410,9 @@
               width: 100vw;
           }
     }
+  @media screen and (max-width: 400px){
+      .order td{
+          padding: 5px;
+     }
+  }
 </style>
