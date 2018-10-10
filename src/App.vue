@@ -16,11 +16,12 @@
       console.log('');
     }
   }
-  Vue.config.warnHandler = function (msg, vm, trace) {
-    if (msg.indexOf('ion-icon') === -1) {
-      console.log(msg + '' + 'this error');
-    }
-  }
+
+  // Vue.config.warnHandler = function (msg, vm, trace) {
+  //   // if (msg.indexOf('ion-icon') === -1) {
+  //     console.log();
+  //   // }
+  // }
 
 export default {
   name: 'app',
@@ -58,7 +59,7 @@ export default {
           let scroll = window.pageYOffset;
           scroll > 0?this.up = true:this.up = false;
           scroll > this.downYpage? this.down = false:this.down = true;
-      }
+      },
   },
   created(){
       this.$router.push({name:'catalogs'});

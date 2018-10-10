@@ -1,27 +1,35 @@
 <template>
   <div id="app">
+      <modal :value="toValue" :activeContainer="container" :remove="position" @reversData="changeReverse($event)">
+        <h3 slot="h1">{{h1}}</h3>
+        <p slot="information">{{toValue}}</p>
+      </modal>
       <myHead></myHead>
       <navbar></navbar>
+      <!--<div class="back">-->
+        <!--<a href=""></a>-->
+        <!--<a href=""></a>-->
+      <!--</div>-->
       <section>
-      <div class="containerAll">
-          <div class="containerCatalogId">
-              <div class="zacaz">
-                  <div>
-                      <div v-if="street == ''||street == null?false:true"><span style="font-weight: bold">Street</span> {{ street}}</div>
+          <div class="containerAll">
+              <div class="containerCatalogId">
+                  <div class="zacaz">
                       <div>
-                          <ion-icon v-for="star in starFull" name="star"></ion-icon>
-                          <ion-icon v-for="star in starNoFull" name="star-outline"></ion-icon>
+                          <div v-if="street == ''||street == null?false:true"><span style="font-weight: bold">Street</span> {{ street}}</div>
+                          <div>
+                              <ion-icon v-for="star in starFull" name="star"></ion-icon>
+                              <ion-icon v-for="star in starNoFull" name="star-outline"></ion-icon>
+                          </div>
+                          <div>
+                             <ion-icon name="contacts"></ion-icon>{{reviews}}
+                          </div>
                       </div>
-                      <div>
-                         <ion-icon name="contacts"></ion-icon>{{reviews}}
-                      </div>
+                      <a class="buttonTo" @click.prevent="toNumber" href="#">Выбрать номер</a>
                   </div>
-                  <a class="buttonTo" @click.prevent="toNumber" href="#">Выбрать номер</a>
+                  <img class="idphoto" :src="photo">
+                  <calendar @object="change($event)" :reverse="reverseData"></calendar>
               </div>
-              <img class="idphoto" :src="photo">
-              <calendar></calendar>
           </div>
-      </div>
       </section>
       <myFoot></myFoot>
   </div>
@@ -32,6 +40,7 @@
   import  header from './work/header.vue'
   import  navbar from './work/navbar.vue'
   import  calendar from './calendar.vue'
+  import modal from './modalYesOrNo.vue'
   export default {
       name: 'app',
       data () {
@@ -41,7 +50,13 @@
               star: null,
               reviews: null,
               allPhoto: null,
-              inf: null
+              inf: null,
+              container:false,
+              toValue:false,
+              text:null,
+              reverseData:null,
+              h1:null,
+              position:[]
           }
       },
       created(){
@@ -66,12 +81,30 @@
                   }
               }
           },
+          changeReverse(value){
+            this.reverseData = value
+          },
+          change(value){
+            this.position = []
+            if(value[2] == 'add'){
+              this.toValue = value[0]
+              this.container= value[1]
+              this.h1 = 'You confirm data?'
+            } else {
+              this.toValue = value[0]
+              this.container= value[1]
+              this.h1 = 'Do you want remove order?'
+              this.position.push(value[2])
+              this.position.push(value[3])
+            }
+          },
       },
       components:{
           myFoot:footer,
           myHead:header,
           navbar:navbar,
-          calendar:calendar
+          calendar:calendar,
+          modal:modal
       },
       computed:{
           starFull(){
@@ -104,9 +137,7 @@
   .idphoto{
       width: 100%;
       height: 500px;
-      background-position: center;
-      background-size: contain;
-      background-repeat: no-repeat;
+      cursor: pointer;
   }
   .zacaz{
       display: flex;

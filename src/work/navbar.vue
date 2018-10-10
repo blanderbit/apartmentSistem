@@ -4,7 +4,7 @@
       <ion-icon name="menu" class="icon pointer" @click="open"></ion-icon>
       <ul class="listsMenu">
         <li v-for="list in lists">
-          <a href="#" @click.prevent="to('main')" :class="{activeLiNav:active('main')}">
+          <a href="#" @click.prevent="to('main')" :class="{activeLiNav:active(list)}">
             {{list}}
           </a>
         </li>

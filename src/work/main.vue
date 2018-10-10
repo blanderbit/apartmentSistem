@@ -143,6 +143,7 @@
   .products{
         .photoProducts{
               width: 30%;
+              cursor: pointer;
               background-position: center;
               background-size: cover;
         }
