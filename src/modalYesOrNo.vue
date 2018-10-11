@@ -115,6 +115,7 @@
           display: flex;
           align-items: center;
           flex-direction: column;
+          box-shadow:1px 1px 1px 2px rgba(0, 0, 0, 0.3) inset;
       }
       h3 {
           margin-bottom: 0;
@@ -180,11 +181,14 @@
       color: darkred;
   }
 
-  @media screen and (max-width: 720px) {
+  @media screen and (max-width: 420px) {
       .active_modal {
           div {
               font-size: 10px;
               width: 70vw;
+          }
+          p {
+            width: 70vw;
           }
       }
   }

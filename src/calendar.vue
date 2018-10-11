@@ -11,7 +11,8 @@
                 <tr class="downCalendar" >
                     <td  class="center day centerDay">Комнаты</td>
                     <td v-for="(dayOne,index) in day" class="center centerDay"
-                        :class="{activeDay:indexDay == index?true:false,activecenterDay:index == its2?true:false}">
+                        :class="{activeDay:indexDay == index && dayOne.number == thisDay?true:false,
+                        activecenterDay:index == its2?true:false}">
                         <ion-icon name="arrow-round-back" class="noneArrow" @click="dayChange('-')"></ion-icon>
                         {{dayOne.number}} {{dayOne.day}}
                         <ion-icon name="arrow-round-forward" class="noneArrow" @click="dayChange('+')"></ion-icon>
@@ -92,8 +93,8 @@
                                   inf: 'Before 25 person'
                             },
                       ],
-                      timeBefore13: ['09:00', '10:00', '11:00', '12:00', '13:00',],
-                      timeAftere13: ['14:00', '15:00', '16:00', '17:00', '18:00',],
+                      timeBefore13: data.timeBefore13,
+                      timeAftere13:data.timeAftere13,
                       count: 1,
                       mainArr: JSON.parse(localStorage.getItem('arrOrders')),
                       year: 2018,
@@ -110,10 +111,10 @@
               methods: {
                   dayChange(simvol){
                       if(simvol == '+'){
-                        this.its2++;
-                        if(this.its2 > 4){
-                            this.its2 = 4;
-                        }
+                          this.its2++;
+                          if(this.its2 > 4){
+                              this.its2 = 4;
+                          }
                       }else{
                           this.its2--;
                           if(this.its2 == -1){
@@ -127,7 +128,7 @@
 
 
                 //test
-                  week(monthes,step,simvol){
+                  week(months,step,simvol){
                       this.its2 = 0
                       if(step != undefined){
                           if(simvol == '+'){
@@ -145,14 +146,16 @@
                         if(31== undefined){
                           return;
                         }
-                        arr.push(this.allMonth[monthes].days[i].day);
+                        arr.push(this.allMonth[months].days[i].day);
                       }
                       for(let j = 0;j < 5;j++){
                         let number = arr[j]
                         this.day[j].number = number;
                       }
                   },
-                //test by data
+
+
+                //work
                   calendarBig: function (year, month, day) {
                       this.monthes = month;
                       this.indexDay = day - 1;
@@ -189,13 +192,9 @@
 
                       }
                       this.allMonth = arr;
+                      console.log(this.allMonth)
                       this.week(month);
-
                   },
-
-
-
-                //work
                   time(time, name, day, number) {
                       let hour = Number(time.substr(0,2))
                       let data = this.datas(hour,number)
@@ -261,6 +260,7 @@
                     this.year == new Date().getFullYear();
                     this.idOrder = this.$router.history.current.params.id;
                     this.thisDay = Number(String(new Date()).split(' ')[2]);
+                    console.log(this.thisDay)
                     this.calendarBig(this.year, new Date().getMonth(), new Date().getDay());
               },
               watch:{

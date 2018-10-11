@@ -26,5 +26,10 @@ let  data = {
     {month: "Sep",number:9}, {month: "Oct",number:10}, {month: "Nov",number:11}, {month: "Dec",number:12}
   ],
   star:[{one:5, two:0}, {one:4, two:1}, {one:3, two:2}, {one:2, two:3}, {one:1,two:4},],
-  objNumber:[{name:'one', number:1},{name:'two', number:2},{name:'three', number:3},{name:'four', number:4},{name:'five', number:5}]
+  objNumber:[{name:'one', number:1},{name:'two', number:2},{name:'three', number:3},{name:'four', number:4},{name:'five', number:5}],
+  lists:['Tickets','Service','ОAbout us','File','Vacancy','Hot tour', 'Information'],
+  sdolialLofo:['logo-vk','logo-facebook','logo-skype', 'logo-instagram'],
+  timeBefore13: ['09:00', '10:00', '11:00', '12:00', '13:00',],
+  timeAftere13: ['14:00', '15:00', '16:00', '17:00', '18:00',],
+
 }

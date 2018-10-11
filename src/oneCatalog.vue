@@ -64,28 +64,7 @@
               h1:null,
               position:[],
               path:null,
-              objNumber:[
-                  {
-                    name:'one',
-                    number:1
-                  },
-                  {
-                    name:'two',
-                    number:2
-                  },
-                  {
-                    name:'three',
-                    number:3
-                  },
-                  {
-                    name:'four',
-                    number:4
-                  },
-                  {
-                    name:'five',
-                    number:5
-                  },
-              ],
+              objNumber:data.objNumber,
               newToken:null
 
           }

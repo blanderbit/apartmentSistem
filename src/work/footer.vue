@@ -38,8 +38,8 @@
     name: "footer",
     data(){
       return{
-        lists:['Tickets','Service','ОAbout us','File','Vacancy','Hot tour', 'Information'],
-        sdolialLofo:['logo-vk','logo-facebook','logo-skype', 'logo-instagram'],
+        lists:data.lists,
+        sdolialLofo:data.sdolialLofo,
         sponsors:['https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png',
         'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/MasterCard_logo.png/640px-MasterCard_logo.png',]
       }

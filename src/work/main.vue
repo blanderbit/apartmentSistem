@@ -51,77 +51,56 @@
   Vue.use(filter)
         export default {
               data(){
-                  return{
-                      apartments:[
-                            {
-                                  photo:'https://pulkovoairport.ru/r/_content/341d7a364367b658f7ed2ee3fb150944/vip1.jpg',
-                                  street:'Avenu 12 old east',
-                                  id:342,
-                                  star:'three',
-                                  reviews:7,
-                            },
-                            {
-                                  photo:'http://www.dekon.ru/files/pictures_fn_86.jpg',
-                                  star:'five',
-                                  id:421,
-                                  street:'Avenu 13 old east',
-                                  reviews:5,
-                                  inf:'',
-                                  allPhoto:[],
-                            },
-                            {
-                                  photo:'https://pulkovoairport.ru/r/_content/341d7a364367b658f7ed2ee3fb150944/vip1.jpg',
-                                  star:'two',
-                                  id:231,
-                                  street:'Avenu 14 old east',
-                                  reviews:1,
-                                  inf:'',
-                                  allPhoto:[],
-                            },
-                            {
-                                  photo:'http://www.dekon.ru/files/pictures_fn_86.jpg',
-                                  star:'one',
-                                  id:42,
-                                  street:'Avenu 15 old east',
-                                  reviews:0,
-                                  inf:'',
-                                  allPhoto:[],
-                            },
-                            {
-                                  photo:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSka6O511Zzze1LLxOfjnAdZOuW4ZlZG81Yu1CMN40XOiyeVtka7g',
-                                  star:'three',
-                                  id:543,
-                                  street:'Avenu 17 old east',
-                                  reviews:12,
-                                  inf:'',
-                                  allPhoto:[],
-                            }
-                      ],
-                      objNumber:[
-                          {
-                              name:'one',
-                              number:1
-                          },
-                          {
-                              name:'two',
-                              number:2
-                          },
-                          {
-                              name:'three',
-                              number:3
-                          },
-                          {
-                              name:'four',
-                              number:4
-                          },
-                          {
-                              name:'five',
-                              number:5
-                          },
-                      ],
-                      star:null,
-                      street:null
-                  }
+                    return{
+                          apartments:[
+                                {
+                                      photo:'https://pulkovoairport.ru/r/_content/341d7a364367b658f7ed2ee3fb150944/vip1.jpg',
+                                      street:'Avenu 12 old east',
+                                      id:342,
+                                      star:'three',
+                                      reviews:7,
+                                },
+                                {
+                                      photo:'http://www.dekon.ru/files/pictures_fn_86.jpg',
+                                      star:'five',
+                                      id:421,
+                                      street:'Avenu 13 old east',
+                                      reviews:5,
+                                      inf:'',
+                                      allPhoto:[],
+                                },
+                                {
+                                      photo:'https://pulkovoairport.ru/r/_content/341d7a364367b658f7ed2ee3fb150944/vip1.jpg',
+                                      star:'two',
+                                      id:231,
+                                      street:'Avenu 14 old east',
+                                      reviews:1,
+                                      inf:'',
+                                      allPhoto:[],
+                                },
+                                {
+                                      photo:'http://www.dekon.ru/files/pictures_fn_86.jpg',
+                                      star:'one',
+                                      id:42,
+                                      street:'Avenu 15 old east',
+                                      reviews:0,
+                                      inf:'',
+                                      allPhoto:[],
+                                },
+                                {
+                                      photo:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSka6O511Zzze1LLxOfjnAdZOuW4ZlZG81Yu1CMN40XOiyeVtka7g',
+                                      star:'three',
+                                      id:543,
+                                      street:'Avenu 17 old east',
+                                      reviews:12,
+                                      inf:'',
+                                      allPhoto:[],
+                                }
+                          ],
+                          objNumber:data.objNumber,
+                          star:null,
+                          street:null
+                    }
               },
               methods:{
                     to(id,photo,street,star,reviews,allPhoto,inf){
