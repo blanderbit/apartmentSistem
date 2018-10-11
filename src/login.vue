@@ -3,7 +3,7 @@
     <div class="containerform">
       <div class="form">
         <form class="login-form">
-          <h3>Autorizatoon</h3>
+          <h3>Autorization</h3>
           <input type="text" v-model="name" placeholder="Логин"
                  :style="{border:nameRequire==0?'1px solid white':'1px solid red'}"/><br>
           <input type="password"v-model="password"
@@ -118,49 +118,51 @@
 </style>
 <script>
   export default {
-    data() {
-      return {
-        count:0,
-        name: '',
-        password:'',
-        error:[],
-        allEroors:0,
-        nameRequire:0,
-        passwordRequire:0,
-        invalidButton:0
+      data() {
+          return {
+              count:0,
+              name: '',
+              password:'',
+              error:[],
+              allEroors:0,
+              nameRequire:0,
+              passwordRequire:0,
+              invalidButton:0
+          }
+      },
+      methods:{
+          toRegistration:function(){
+             this.$router.push({name:'registration'});
+          },
+          valids:function(valid,name,textEror){
+              if (valid) {
+                  this.count++;
+                  this.error.push(textEror)
+                  name == 'login'?this.nameRequire = 1:this.passwordRequire = 1;
+              } else {
+                  name == 'login'?this.error1 = '':this.error2 = '';
+                  this.count = 0;
+              }
+          },
+          signIn:function() {
+              this.error = []
+              this.valids(!this.name,'login',"Login required");
+              this.valids(!this.password,'password',"Password required");
+              if (this.error.length> 0){
+                 this.allEroors = 1;
+              } else {
+                  sessionStorage.setItem('token','qwrwqrqwrqwrqwr')
+                  sessionStorage.setItem('idUser',222222)
+                  this.$router.push({name:'catalogs'})
+              }
+              let it = this;
+              setTimeout(function () {
+                  it.allEroors = 0;
+                  it.nameRequire = 0;
+                  it.passwordRequire = 0;
+                  it.invalidButton = 0;
+              },2000)
+          },
       }
-    },
-    methods:{
-      toRegistration:function(){
-        this.$router.push({name:'registration'});
-      },
-      valids:function(valid,name,textEror){
-        if (valid) {
-          this.count++;
-          this.error.push(textEror)
-          name == 'login'?this.nameRequire = 1:this.passwordRequire = 1;
-        } else {
-          name == 'login'?this.error1 = '':this.error2 = '';
-          this.count = 0;
-        }
-      },
-      signIn:function() {
-        this.error = []
-        this.valids(!this.name,'login',"Login required");
-        this.valids(!this.password,'password',"Password required");
-        if (this.error.length> 0){
-          this.allEroors = 1;
-        } else {
-          this.$router.push({name:'catalogs'})
-        }
-        let it = this;
-        setTimeout(function () {
-          it.allEroors = 0;
-          it.nameRequire = 0;
-          it.passwordRequire = 0;
-          it.invalidButton = 0;
-        },2000)
-      },
-    }
   }
 </script>

@@ -1,11 +1,16 @@
 <template>
   <div id="app">
-      <modal :value="toValue" :activeContainer="container" :remove="position" @reversData="changeReverse($event)">
-        <h3 slot="h1">{{h1}}</h3>
-        <p slot="information">{{toValue}}</p>
-        <span slot="a">{{position[0]}}</span>
+      <modal :value="toValue"
+             :activeContainer="container"
+             :remove="position"
+             @reversData="changeReverse($event)"
+             @reverseContainer="reverseContainer($event)"
+              :newTok="newToken">
+          <h3 slot="h1">{{h1}}</h3>
+          <p slot="information">{{toValue}}</p>
+          <span slot="a">{{position[0]}}</span>
       </modal>
-      <myHead></myHead>
+      <myHead @tokenHeader="changeToken($event)"></myHead>
       <navbar></navbar>
       <section>
           <div class="containerAll containerAllByOne">
@@ -60,27 +65,28 @@
               position:[],
               path:null,
               objNumber:[
-                {
-                  name:'one',
-                  number:1
-                },
-                {
-                  name:'two',
-                  number:2
-                },
-                {
-                  name:'three',
-                  number:3
-                },
-                {
-                  name:'four',
-                  number:4
-                },
-                {
-                  name:'five',
-                  number:5
-                },
+                  {
+                    name:'one',
+                    number:1
+                  },
+                  {
+                    name:'two',
+                    number:2
+                  },
+                  {
+                    name:'three',
+                    number:3
+                  },
+                  {
+                    name:'four',
+                    number:4
+                  },
+                  {
+                    name:'five',
+                    number:5
+                  },
               ],
+              newToken:null
 
           }
       },
@@ -124,6 +130,12 @@
                   this.position.push(value[2])
                   this.position.push(value[3])
               }
+          },
+          changeToken(value){
+              this.newToken = value
+          },
+          reverseContainer(value){
+            this.container= value
           },
           back(){
               this.$router.push({name:'catalogs'})

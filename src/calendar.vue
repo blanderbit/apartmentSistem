@@ -59,12 +59,10 @@
           data() {
                 return {
                       month: 'June',
-                      allMonth: [
-                        {month: "Jan",}, {month: "Feb"}, {month: "Mar"}, {month: "Apr"}, {month: "May"}, {month: "Jun"},
-                        {month: "Jul"}, {month: "Aug"}, {month: "Sep"}, {month: "Oct"}, {month: "Nov"}, {month: "Dec"}
-                      ],
+                      allMonth:[],
+                      nameMonth: data.nameMonth,
                       day: [
-                            {day: 'Mondey', number: null}, {day: 'Tuesday', number: null}, {day: 'Webnesday', number: null},
+                            {day: 'Monday', number: null}, {day: 'Tuesday', number: null}, {day: 'Webnesday', number: null},
                             {day: 'Thursday', number: null}, {day: 'Fridey', number: null}
                         ],
                       indexDay: null,
@@ -110,153 +108,154 @@
                     }
               },
               methods: {
-                dayChange(simvol){
-                  if(simvol == '+'){
-                    this.its2++;
-                    if(this.its2 > 4){
-                      this.its2 = 4;
-                    }
-                  }else{
-                    this.its2--;
-                    if(this.its2 == -1){
-                      this.its2 = 0;
-                    }
-                  }
-                },
-                change(number){
-                  this.its = number;
-                },
+                  dayChange(simvol){
+                      if(simvol == '+'){
+                        this.its2++;
+                        if(this.its2 > 4){
+                            this.its2 = 4;
+                        }
+                      }else{
+                          this.its2--;
+                          if(this.its2 == -1){
+                             this.its2 = 0;
+                          }
+                      }
+                  },
+                  change(number){
+                     this.its = number;
+                  },
 
 
                 //test
-                week(monthes,step,simvol){
-                  this.its2 = 0
-                  if(step != undefined){
-                    if(simvol == '+'){
-                      this.start = Number(this.start + step);
-                      this.steps = Number(this.steps +  step);
-                    }else{
-                      this.start = Number(this.start - step);
-                      this.steps = Number(this.steps - step);
-                    }
-                  }
-                  let arr = [];
-                  for(let i = this.start;i<this.steps;i++ ){
-                    // this.allMonth[monthes];
-                    // if(this.allMonth[monthes].days[i] == undefined){
-                    if(31== undefined){
-                      return;
-                    }
-                    arr.push(this.allMonth[monthes].days[i].day);
-                  }
-                  for(let j = 0;j < 5;j++){
-                    let number = arr[j]
-                    this.day[j].number = number;
-                  }
-                },
+                  week(monthes,step,simvol){
+                      this.its2 = 0
+                      if(step != undefined){
+                          if(simvol == '+'){
+                              this.start = Number(this.start + step);
+                              this.steps = Number(this.steps +  step);
+                          }else{
+                              this.start = Number(this.start - step);
+                              this.steps = Number(this.steps - step);
+                          }
+                      }
+                      let arr = [];
+                      for(let i = this.start;i<this.steps;i++ ){
+                        // this.allMonth[monthes];
+                        // if(this.allMonth[monthes].days[i] == undefined){
+                        if(31== undefined){
+                          return;
+                        }
+                        arr.push(this.allMonth[monthes].days[i].day);
+                      }
+                      for(let j = 0;j < 5;j++){
+                        let number = arr[j]
+                        this.day[j].number = number;
+                      }
+                  },
                 //test by data
-                calendarBig: function (year, month, day) {
-                  this.monthes = month;
-                  this.indexDay = day - 1;
-                  this.month = this.allMonth[month].month;
-                  let arr = [];
-                  for (let m = 0; m <= 11; m++) {
-                    let Day = new Date(year, [m]);
-                    let DlastForMonth = new Date(Day.getFullYear(), Day.getMonth() + 1, 0).getDate(),
-                      DNlast = new Date(Day.getFullYear(), Day.getMonth(), DlastForMonth).getDay(),
-                      DNfirst = new Date(Day.getFullYear(), Day.getMonth(), 1).getDay();
-                    let obj = {
-                      month: String(Day).split(' ')[1],
-                      nDay: DlastForMonth,
-                      lastDay: DNlast,
-                      firstDay: DNfirst,
-                      days: []
-                    }
-                    arr.push(obj);
-                    let number = DNfirst;
-                    for (let i = 1; i <= DlastForMonth; i++) {
-                      if (number == 7) {
-                        number = 'v';
-                      }
-                      let daysObj = {
-                        day: i,
-                        numder: number,
-                      }
-                      obj.days.push(daysObj);
-                      if (number == 'v') {
-                        number = 0;
-                      }
-                      number++;
-                    }
+                  calendarBig: function (year, month, day) {
+                      this.monthes = month;
+                      this.indexDay = day - 1;
+                      this.month = this.nameMonth[month].month;
+                      let arr = [];
+                      for (let m = 0; m <= 11; m++) {
+                          let Day = new Date(year, [m]);
+                          let DlastForMonth = new Date(Day.getFullYear(), Day.getMonth() + 1, 0).getDate(),
+                              DNlast = new Date(Day.getFullYear(), Day.getMonth(), DlastForMonth).getDay(),
+                              DNfirst = new Date(Day.getFullYear(), Day.getMonth(), 1).getDay();
+                          let obj = {
+                              month: String(Day).split(' ')[1],
+                              nDay: DlastForMonth,
+                              lastDay: DNlast,
+                              firstDay: DNfirst,
+                              days: []
+                          }
+                          arr.push(obj);
+                          let number = DNfirst;
+                          for (let i = 1; i <= DlastForMonth; i++) {
+                              if (number == 7) {
+                                  number = 'v';
+                              }
+                              let daysObj = {
+                                  day: i,
+                                  numder: number,
+                              }
+                              obj.days.push(daysObj);
+                              if (number == 'v') {
+                                  number = 0;
+                              }
+                              number++;
+                          }
 
-                  }
-                  this.allMonth = arr;
-                  this.week(month);
+                      }
+                      this.allMonth = arr;
+                      this.week(month);
 
-                },
+                  },
 
 
 
                 //work
-                time(time, name, day, number) {
-                  let itMonth = this.month;
-                  let id_order = this.idOrder;
-                  let obj = {
-                    year: 2018,
-                    month: itMonth,
-                    day: day,
-                    numberDay: number,
-                    time: time,
-                    name: name,
-                    idOrder: id_order
-                  }
-                  let sent =  JSON.stringify(obj)
-
-                  let active = event.currentTarget.classList.contains('active')
-                  if(active == true){
-                    let position = this.remove(sent)
-                    this.$emit('object',[sent,true,'Remove',position])
-                  } else {
-                    this.$emit('object',[sent,true,'Add'])
-                    this.open()
-                  }
-                },
-                remove(value){
-                  let information = JSON.parse(value)
-                  for (let i = 0; i < this.mainArr.length; i++) {
-                    if (this.mainArr[i].month == information.month
-                      && this.mainArr[i].year == information.year
-                      && this.mainArr[i].day == information.day
-                      && this.mainArr[i].numberDay == information.numberDay
-                      && this.mainArr[i].time == information.time
-                      && this.mainArr[i].name == information.name
-                      && this.mainArr[i].idOrder == information.idOrder) {
-                      console.log(i)
-                      let position = i
-                      return position
-                    }
-                  }
-                },
-                infOrder(time, name, day, number) {
-                  if (this.mainArr != null) {
-                    for (let i = 0; i < this.mainArr.length; i++) {
-                      if (this.mainArr[i].month == this.month
-                        && this.mainArr[i].year == this.year
-                        && this.mainArr[i].day == day
-                        && this.mainArr[i].numberDay == number
-                        && this.mainArr[i].time == time
-                        && this.mainArr[i].name == name
-                        && this.mainArr[i].idOrder == this.idOrder) {
-                        return true;
+                  time(time, name, day, number) {
+                      let hour = Number(time.substr(0,2))
+                      let data = this.datas(hour,number)
+                      let obj = {
+                          data:String(data),
+                          name: name,
+                          order: this.idOrder,
+                          user: sessionStorage.getItem('idUser')
                       }
-                    }
-                  }
+                      let sent =  JSON.stringify(obj)
 
-                },
-                open:function(){
-                  let overlow =  document.querySelector('html')
-                  overlow.style.overflowY = 'hidden';
-                }
+                      let active = event.currentTarget.classList.contains('active')
+                      if(active == true){
+                          let position = this.remove(sent,number)
+                          this.$emit('object',[sent,true,'Remove',position])
+                          this.open()
+                      } else {
+                          this.$emit('object',[sent,true,'Add'])
+                          this.open()
+                      }
+                  },
+                  remove(value,number){
+                      let information = JSON.parse(value)
+                      let hour = Number(information.data.split(' ')[4].substr(0,2))
+                      let data = this.datas(hour,number)
+                      for (let i = 0; i < this.mainArr.length; i++) {
+                          if (this.mainArr[i].data == data
+                              && this.mainArr[i].name == information.name
+                              && this.mainArr[i].user == sessionStorage.getItem('idUser')
+                              && this.mainArr[i].order == this.idOrder) {
+                              return i;
+                          }
+                      }
+                  },
+                  datas(hour,number){
+                      for(let i = 0; i < this.nameMonth.length;i++){
+                          if(this.allMonth[i].month == this.month){
+                              return new Date(this.year, this.nameMonth[i - 1].number, number,hour)
+                          }
+                      }
+                  },
+                  infOrder(time, name, day, number) {
+                      if (this.mainArr != null) {
+                          let hour = Number(time.substr(0,2))
+                          let data = this.datas(hour,number)
+                          for (let i = 0; i < this.mainArr.length; i++) {
+                              if (this.mainArr[i].data == data
+                                  && this.mainArr[i].name == name
+                                  && this.mainArr[i].user == sessionStorage.getItem('idUser')
+                                  && this.mainArr[i].order == this.idOrder) {
+                                  return true;
+                              }
+                          }
+                      }
+
+                  },
+                  open:function(){
+                    let overlow =  document.querySelector('html')
+                    overlow.style.overflowY = 'hidden';
+                  }
               },
               created() {
                     this.year == new Date().getFullYear();
@@ -265,10 +264,10 @@
                     this.calendarBig(this.year, new Date().getMonth(), new Date().getDay());
               },
               watch:{
-                reverse:function(value){
-                  this.mainArr = JSON.parse(value)
-                }
-            }
+                  reverse:function(value){
+                       this.mainArr = JSON.parse(value)
+                  }
+            },
         }
 </script>
 

@@ -1,93 +1,51 @@
 <template>
-  <aside>
-    <div class="asideContainer">
-      <div class="resultSearch">
-      </div>
-      <div class="title" v-if="closes">
-        <ion-icon name="close" @click="close()"></ion-icon>
-        <ion-icon name="cube"></ion-icon>
-        <p>Freedom appartments on all taste</p>
-      </div>
-      <div class="asideSearch">
-        <form action="" class="search">
-          <input type="search" v-on:input="nameStreet()" v-model="street" placeholder="Search apartments" class="input" />
-          <input type="submit"  value="" class="submit" />
-        </form>
-      </div>
-      <div class="searchStar">
-        <form>
-          <div class="containerSearch" v-for="stars in star" >
-            <input type="radio" name="radio" @change="radio(stars.one)" :value="stars.one"/>
-            <div>
-              <ion-icon v-for="star in stars.one" name="star"></ion-icon>
-              <ion-icon v-for="star in stars.two" name="star-outline"></ion-icon>
+    <aside>
+        <div class="asideContainer">
+            <div class="resultSearch">
             </div>
-          </div>
-          <div class="containerSearch">
-            <input type="radio" name="radio" @click="radio(null)" :value="null"/>
-            <div>
-              No
+            <div class="title" v-if="closes">
+                <ion-icon name="close" @click="close()"></ion-icon>
+                <ion-icon name="cube"></ion-icon>
+                <p>Freedom appartments on all taste</p>
             </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </aside>
+            <div class="asideSearch">
+                <form action="" class="search">
+                    <input type="search" v-on:input="nameStreet()" v-model="street" placeholder="Search apartments" class="input" />
+                    <input type="submit"  value="" class="submit" />
+                </form>
+            </div>
+            <div class="searchStar">
+                <form>
+                    <div class="containerSearch" v-for="stars in star" >
+                        <input type="radio" name="radio" @change="radio(stars.one)" :value="stars.one"/>
+                        <div>
+                            <ion-icon v-for="star in stars.one" name="star"></ion-icon>
+                            <ion-icon v-for="star in stars.two" name="star-outline"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="containerSearch">
+                        <input type="radio" name="radio" @click="radio(null)" :value="null"/>
+                        <div>
+                          No
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </aside>
 </template>
 
 <script>
   export default {
-    props:['ids'],
-    data(){
-      return{
-        star:[
-          {
-            one:5,
-            two:0
-          },
-          {
-            one:4,
-            two:1
-          },
-          {
-            one:3,
-            two:2
-          },
-          {
-            one:2,
-            two:3
-          },
-          {
-            one:1,
-            two:4
-          },
-        ],
-        objNumber:[
-          {
-            name:'one',
-            number:1
-          },
-          {
-            name:'two',
-            number:2
-          },
-          {
-            name:'three',
-            number:3
-          },
-          {
-            name:'four',
-            number:4
-          },
-          {
-            name:'five',
-            number:5
-          },
-        ],
-          closes:true,
-        street:null
-      }
-    },
+      props:['ids'],
+      data(){
+          return{
+              star:data.star,
+              objNumber: data.objNumber,
+              closes:true,
+              street:null
+        }
+      },
       methods:{
           close:function(){
               this.closes = false;

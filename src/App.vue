@@ -62,7 +62,7 @@ export default {
       },
   },
   created(){
-      this.$router.push({name:'login'});
+      this.$router.push({name:'catalogs'});
   },
   mounted(){
       window.addEventListener('wheel',this.scroller);

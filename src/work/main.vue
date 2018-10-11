@@ -59,8 +59,6 @@
                                   id:342,
                                   star:'three',
                                   reviews:7,
-                                  inf:'',
-                                  allPhoto:[],
                             },
                             {
                                   photo:'http://www.dekon.ru/files/pictures_fn_86.jpg',
