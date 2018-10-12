@@ -62,7 +62,17 @@ export default {
       },
   },
   created(){
-      this.$router.push({name:'catalogs'});
+    let locations = location.pathname.split("/")
+    // if (locations.slice(1, 2).toString() != '') {
+    //   if (locations.length == 2) {
+    //     // this.routs(locations.slice(1, 2).toString())
+    //   } else if (locations.length == 3) {
+    //     // this.routs(locations.slice(1, 2).toString(), locations.slice(2, 3).toString())
+    //   }
+    // }else{
+    //   // this.routs("login")
+    // }
+      this.$router.push({name:locations[1]});
   },
   mounted(){
       window.addEventListener('wheel',this.scroller);

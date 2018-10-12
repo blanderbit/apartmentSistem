@@ -169,18 +169,6 @@
           font-size: 15px;
       }
   }
-
-  .close {
-      position: absolute;
-      right: 1em;
-      top: 1em;
-      cursor: pointer;
-  }
-
-  .close:hover {
-      color: darkred;
-  }
-
   @media screen and (max-width: 420px) {
       .active_modal {
           div {

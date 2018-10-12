@@ -10,11 +10,10 @@
                            :style="{border:emailRequire==0?'1px solid white':'1px solid red'}"/><br>
                     <input type="password" v-model="password"
                            :style="{border:passwordRequire==0?'1px solid white':'1px solid red'}" placeholder="Password"/>
-
-                    <button @click.prevent="create">create</button>
+                    <button @click.prevent="create" :style="{background:button == 0?'royalblue':'red'}">create</button>
                     <p class="message">
                         You have account?
-                        <a href="#" @click="login">
+                        <a href="#" @click.prevent="login">
                           Log in
                         </a>
                     </p>
@@ -28,9 +27,11 @@
                 </li>
             </ul>
         </div>
-        <div class="modallogin" :style="{display:created==0?'none':'flex'}">
+        <div class="modallogin" :style="{width:created==0?'0':'100vw',
+            fontSize:created==0?'0':'50px',
+            height:created==0?'0':'100vh'}">
             <div>
-                Create
+                Created
             </div>
         </div>
     </div>
@@ -51,7 +52,13 @@
               passwordRequire: 0,
               invalidButton: 0,
               emailRequire: 0,
-              created:0
+              created:0,
+              button:0
+          }
+      },
+      created(){
+          if(sessionStorage.getItem('token') != null){
+              this.$router.push({name:'catalogs'});
           }
       },
       methods: {
@@ -60,8 +67,8 @@
           },
           valids: function (valid, name, textEror) {
               if (valid) {
-                this.error.push(textEror)
-                name == 'login' ? this.nameRequire = 1 : name == 'password'?this.passwordRequire = 1 : this.emailRequire = 1
+                  this.error.push(textEror)
+                  name == 'login' ? this.nameRequire = 1 : name == 'password'?this.passwordRequire = 1 : this.emailRequire = 1
               }
           },
           create: function () {
@@ -74,7 +81,7 @@
                   this.allEroors = 1;
               } else {
                   const instance = axios.create({
-                    baseURL: 'http://ec2-54-88-87-181.compute-1.amazonaws.com:8889',
+                      baseURL: 'http://ec2-54-88-87-181.compute-1.amazonaws.com:8889',
                   });
 
                   instance.post('register',
@@ -84,23 +91,31 @@
                           password: this.password
                       })
                       .then(response => {
-                          console.log(response)
-                          if(response.statusText == 200){
-                              this.created = 1
-                              let it = this;
-                              setTimeout(function () {
-                                 it.created = 0
-                                 it.$router.push({name:'catalogs'})
-                              }, 2000)
+                          if(response.status == 200){
+                              let email = response.data.email
+                              if(email != null && Array.isArray(email)){
+                                  for(let i = 0; i < email.length;i++){
+                                      this.error.push(email[i])
+                                      this.allEroors = 1;
+                                      this.emailRequire = 1;
+                                      this.button = 1;
+                                  }
+                              }
+                              else{
+                                  this.created = 1
+                                  let it = this;
+                                  setTimeout(function () {
+                                      it.created = 0
+                                      it.$router.push({name:'login'})
+                                  }, 2000)
+                              }
+                          }else{
+                            console.log(response.status)
                           }
                       })
                       .catch(response => {
-                          console.log('asdasd')
-                          console.log(response.response)
-                          this.errored = true;
+                          console.log(response.response.data)
                       })
-                  // sessionStorage.setItem('token','qwrwqrqwrqwrqwr')
-                  // this.$router.push({name:'catalogs'})
               }
               let it = this;
               setTimeout(function () {
@@ -109,104 +124,9 @@
                   it.passwordRequire = 0;
                   it.invalidButton = 0;
                   it.emailRequire = 0;
+                  it.button = 0;
               }, 2000)
           },
       }
   }
 </script>
-
-<style>
-  .Login {
-    position: absolute;
-    background: lightpink;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-  }
-
-  .containerform {
-    width: 360px;
-    margin: auto;
-  }
-
-  .form {
-    position: relative;
-    z-index: 1;
-    background: #FFFFFF;
-    padding: 45px;
-    text-align: center;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  }
-
-  .form input {
-    font-family: "Roboto", sans-serif;
-    outline: 0;
-    background: #f2f2f2;
-    width: 100%;
-    margin: 0 0 15px;
-    padding: 15px;
-    box-sizing: border-box;
-    font-size: 14px;
-    transition: all 1s;
-    border: 1px solid white;
-  }
-
-  .form button {
-    font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
-    outline: 0;
-    background: royalblue;
-    width: 100%;
-    border: 0;
-    margin-top: 20px;
-    padding: 15px;
-    color: #FFFFFF;
-    font-size: 14px;
-    -webkit-transition: all 0.3s ease;
-    transition: all 1s;
-    cursor: pointer;
-  }
-
-  .form button:hover, .form button:active, .form button:focus {
-    background: rgb(0, 177, 217) !important;
-  }
-
-  .form .message {
-    margin: 15px 0 0;
-    color: #b3b3b3;
-    font-size: 12px;
-  }
-
-  .form .message a {
-    color: rebeccapurple;
-    text-decoration: none;
-  }
-
-  .allErrors {
-    position: absolute;
-    opacity: 0;
-    background: red;
-    border: 1px solid red;
-
-    padding: 5px;
-    color: white;
-    right: 5px;
-    top: 5px;
-    z-index: 10;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-    word-wrap: break-word;
-    transition: all 1s;
-  }
-
-  .allErrors ul {
-    padding: 0;
-    margin: 0;
-  }
-
-  .allErrors ul li {
-    padding: 5px;
-    list-style: none;
-  }
-</style>

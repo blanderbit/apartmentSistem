@@ -150,6 +150,8 @@
     mounted(){
       window.addEventListener('resize',this.hendleResize);
     },
-
+    beforeDestroy(){
+      window.removeEventListener('resize',this.hendleResize);
+    }
   }
   </script>

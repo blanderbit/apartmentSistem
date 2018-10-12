@@ -1,7 +1,12 @@
 <template>
     <div id="calendar">
         <h2>Booking appartments</h2>
-        <div >
+        <div>
+          <table id="calendar2">
+
+          </table>
+        </div>
+        <div>
             <table class="containerCalendar ">
                 <tr class="appartment caption">
                     <ion-icon name="arrow-round-back" @click="week(9,7,'-')"></ion-icon>
@@ -192,7 +197,6 @@
 
                       }
                       this.allMonth = arr;
-                      console.log(this.allMonth)
                       this.week(month);
                   },
                   time(time, name, day, number) {
@@ -200,6 +204,7 @@
                       let data = this.datas(hour,number)
                       let obj = {
                           data:String(data),
+                        //color
                           name: name,
                           order: this.idOrder,
                           user: sessionStorage.getItem('idUser')
@@ -256,11 +261,59 @@
                     overlow.style.overflowY = 'hidden';
                   }
               },
+              mounted(){
+                function createCalendar(id, year, month) {
+                  var elem = document.getElementById(id);
+
+                  var mon = month - 1; // месяцы в JS идут от 0 до 11, а не от 1 до 12
+                  var d = new Date(year, mon);
+
+                  var table = '<table><tr><th>пн</th><th>вт</th><th>ср</th><th>чт</th><th>пт</th><th>сб</th><th>вс</th></tr><tr>';
+
+                  // заполнить первый ряд от понедельника
+                  // и до дня, с которого начинается месяц
+                  // * * * | 1  2  3  4
+                  for (var i = 0; i < getDay(d); i++) {
+                    table += '<td></td>';
+                  }
+
+                  // ячейки календаря с датами
+                  while (d.getMonth() == mon) {
+                    table += '<td>' + d.getDate() + '</td>';
+
+                    if (getDay(d) % 7 == 6) { // вс, последний день - перевод строки
+                      table += '</tr><tr>';
+                    }
+
+                    d.setDate(d.getDate() + 1);
+                  }
+
+                  // добить таблицу пустыми ячейками, если нужно
+                  if (getDay(d) != 0) {
+                    for (var i = getDay(d); i < 7; i++) {
+                      table += '<td></td>';
+                    }
+                  }
+
+                  // закрыть таблицу
+                  table += '</tr></table>';
+
+                  // только одно присваивание innerHTML
+                  elem.innerHTML = table;
+                }
+
+                function getDay(date) { // получить номер дня недели, от 0(пн) до 6(вс)
+                  var day = date.getDay();
+                  if (day == 0) day = 7;
+                  return day - 1;
+                }
+
+                createCalendar("calendar2", 2018, 10)
+              },
               created() {
                     this.year == new Date().getFullYear();
                     this.idOrder = this.$router.history.current.params.id;
                     this.thisDay = Number(String(new Date()).split(' ')[2]);
-                    console.log(this.thisDay)
                     this.calendarBig(this.year, new Date().getMonth(), new Date().getDay());
               },
               watch:{
@@ -447,4 +500,34 @@
           padding: 5px;
      }
   }
+
+
+
+    #calendar2 {
+      width: 100%;
+      font: monospace;
+      line-height: 1.2em;
+      font-size: 15px;
+      text-align: center;
+    }
+    #calendar2 thead tr:last-child {
+      font-size: small;
+      color: rgb(85, 85, 85);
+    }
+    #calendar2 thead tr:nth-child(1) td:nth-child(2) {
+      color: rgb(50, 50, 50);
+    }
+    #calendar2 thead tr:nth-child(1) td:nth-child(1):hover, #calendar2 thead tr:nth-child(1) td:nth-child(3):hover {
+      cursor: pointer;
+    }
+    #calendar2 tbody td {
+      color: rgb(44, 86, 122);
+    }
+    #calendar2 tbody td:nth-child(n+6), #calendar2 .holiday {
+      color: rgb(231, 140, 92);
+    }
+    #calendar2 tbody td.today {
+      background: rgb(220, 0, 0);
+      color: #fff;
+    }
 </style>

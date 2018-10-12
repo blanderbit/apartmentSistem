@@ -1,7 +1,10 @@
 <template>
     <aside>
         <div class="asideContainer">
-            <div class="resultSearch">
+            <div class="title advertise" @click="openModalCreateFormPost">
+                <div>
+                    To advertise
+                </div>
             </div>
             <div class="title" v-if="closes">
                 <ion-icon name="close" @click="close()"></ion-icon>
@@ -19,8 +22,8 @@
                     <div class="containerSearch" v-for="stars in star" >
                         <input type="radio" name="radio" @change="radio(stars.one)" :value="stars.one"/>
                         <div>
-                            <ion-icon v-for="star in stars.one" name="star"></ion-icon>
-                            <ion-icon v-for="star in stars.two" name="star-outline"></ion-icon>
+                            <ion-icon v-for="(star,index) in stars.one" :key="index" name="star"></ion-icon>
+                            <ion-icon v-for="(star,index) in stars.two" :key="index" name="star-outline"></ion-icon>
                         </div>
                     </div>
                     <div class="containerSearch">
@@ -68,6 +71,9 @@
                      return this.objNumber[i].number
                   }
               }
+          },
+          openModalCreateFormPost(){
+              this.$emit('activeMiddleFormModal', true)
           }
       }
   }
@@ -93,6 +99,23 @@
         flex-direction: column;
         align-items: center;
         color: white
+      }
+      .advertise{
+        background: lightpink;
+        cursor: pointer;
+
+      }
+      .advertise{
+        div{
+          text-decoration: none;
+          color: black;
+        }
+        &:hover{
+          background: deeppink;
+        }
+        &:hover > div{
+          color: white;
+        }
       }
         .title{
             ion-icon[name="cube"]{

@@ -2,52 +2,68 @@
     <header>
         <div class="container-header">
             <div class="logo">Booking</div>
-            <div class="logoByProfil">
-                <div class="helps">
-                    <a href="#">Helps</a>
+                <div class="logoByProfil">
+                    <div class="helps">
+                        <a href="#">Helps</a>
+                    </div>
+                    <div class="lang">
+                        <a href="#">ru</a>
+                        <a href="#">en</a>
+                    </div>
+                <div class="profil" >
+                    <div class="window">
+                        <ul>
+                          <li v-if="token != true?true:false" @click="to('login')" >Sign in</li>
+                          <li v-if="token != true?true:false" @click="to('registration')">Registration</li>
+                          <li v-if="token == true?true:false">ID:<span>{{idUser}}</span></li>
+                          <li v-if="token == true?true:false" @click="logOut()">Log out</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="lang">
-                    <a href="#">ru</a>
-                    <a href="#">en</a>
-                </div>
-            <div class="profil" >
-              <div class="window">
-                  <ul>
-                    <li v-if="token != true?true:false" @click="to('login')" >Sign in</li>
-                    <li v-if="token != true?true:false" @click="to('registration')">Registration</li>
-                    <li v-if="token == true?true:false">ID:<span>{{idUser}}</span></li>
-                    <li v-if="token == true?true:false" @click="logOut()">Log out</li>
-                  </ul>
-              </div>
             </div>
-          </div>
         </div>
     </header>
 </template>
 
 <script>
-
+  import axios from 'axios'
   export default {
       data(){
-        return{
-          idUser:sessionStorage.getItem('idUser'),
-          token: null,
-        }
+          return{
+              idUser:sessionStorage.getItem('idUser'),
+              token: null,
+          }
       },
-    created(){
-        this.token = sessionStorage.getItem('token')!= null?true:false
-    },
+      created(){
+          this.token = sessionStorage.getItem('token')!= null?true:false
+      },
       methods:{
           to(name){
               this.$router.push({name:name})
           },
           logOut(){
-              sessionStorage.removeItem('token')
-              this.token= sessionStorage.getItem('token') != null?true:false
-              this.$emit('tokenHeader', this.token)
+              const instance = axios.create({
+                  baseURL: 'http://ec2-54-88-87-181.compute-1.amazonaws.com:8889',
+                  headers:{
+                    Authorization:sessionStorage.getItem('token'),
+                    "X-Token-Auth":sessionStorage.getItem('token')
+                  }
+              });
+              instance.post('logout',
+                {
+                    token:sessionStorage.getItem('token')
+                })
+                .then(response => {
+                    console.log(response)
+                    sessionStorage.removeItem('token')
+                    this.token= sessionStorage.getItem('token') != null?true:false
+                    this.$emit('tokenHeader', this.token)
+                })
+                .catch(response => {
+                    console.log(response.response)
+                })
           }
       },
-
 
   }
 </script>

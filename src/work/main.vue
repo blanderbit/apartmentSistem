@@ -1,23 +1,21 @@
 <template>
     <section>
           <div class="containerAll">
-                 <myAside v-on:radioNumber="changesNumber($event)"
+                 <myAside v-on:radioNumber="changesNumber($event)" @activeMiddleFormModal="changeActiveModal($event)"
                           @streetName="changesStreet($event)" :ids="star"></myAside>
                  <div class="container">
                        <div class="products" v-for="one in filterBy(filterBy(apartments,street),star)" :id="one.id">
-                             <div class="photoProducts" :style="{backgroundImage:'url('+one.photo+')'}"
+                             <div class="photoProducts" :style="{backgroundImage:'url('+one.photo_url+')'}"
                                  @click="to(one.id,
-                                 one.photo,
+                                 one.photo_url,
                                  one.street,
                                  one.star,
-                                 one.reviews,
-                                 one.allPhoto,
-                                 one.inf)">
+                                 one.reviews)">
                              </div>
                              <div class="infa-products">
                                    <div>
-                                         <ion-icon v-for="star in replaceStreetInNumber(one.star)" name="star"></ion-icon>
-                                         <ion-icon v-for="star in 5 - replaceStreetInNumber(one.star)" name="star-outline"></ion-icon>
+                                         <ion-icon v-for="(star,index) in replaceStreetInNumber(one.star)" :key="insex" name="star"></ion-icon>
+                                         <ion-icon v-for="(star,index) in replaceStreetInNumber(one.star, 5 , '-')" :key="insex" name="star-outline"></ion-icon>
                                    </div>
                                    <div v-if="one.street == ''||one.street == null?false:true">
                                        <span style="font-weight: bold">
@@ -31,12 +29,10 @@
                              </div>
                              <div class="buttonProducts">
                                  <a href="#" @click.prevent="to(one.id,
-                             one.photo,
+                             one.photo_url,
                              one.street,
                              one.star,
-                             one.reviews,
-                             one.allPhoto,
-                             one.inf)">Choose a number</a>
+                             one.reviews)">Choose a number</a>
                              </div>
                        </div>
                  </div>
@@ -48,59 +44,30 @@
   import Vue from 'vue'
   import aside from './aside.vue'
   import filter from 'vue2-filters'
+  import axios from 'axios'
   Vue.use(filter)
         export default {
               data(){
                     return{
-                          apartments:[
-                                {
-                                      photo:'https://pulkovoairport.ru/r/_content/341d7a364367b658f7ed2ee3fb150944/vip1.jpg',
-                                      street:'Avenu 12 old east',
-                                      id:342,
-                                      star:'three',
-                                      reviews:7,
-                                },
-                                {
-                                      photo:'http://www.dekon.ru/files/pictures_fn_86.jpg',
-                                      star:'five',
-                                      id:421,
-                                      street:'Avenu 13 old east',
-                                      reviews:5,
-                                      inf:'',
-                                      allPhoto:[],
-                                },
-                                {
-                                      photo:'https://pulkovoairport.ru/r/_content/341d7a364367b658f7ed2ee3fb150944/vip1.jpg',
-                                      star:'two',
-                                      id:231,
-                                      street:'Avenu 14 old east',
-                                      reviews:1,
-                                      inf:'',
-                                      allPhoto:[],
-                                },
-                                {
-                                      photo:'http://www.dekon.ru/files/pictures_fn_86.jpg',
-                                      star:'one',
-                                      id:42,
-                                      street:'Avenu 15 old east',
-                                      reviews:0,
-                                      inf:'',
-                                      allPhoto:[],
-                                },
-                                {
-                                      photo:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSka6O511Zzze1LLxOfjnAdZOuW4ZlZG81Yu1CMN40XOiyeVtka7g',
-                                      star:'three',
-                                      id:543,
-                                      street:'Avenu 17 old east',
-                                      reviews:12,
-                                      inf:'',
-                                      allPhoto:[],
-                                }
-                          ],
+                          apartments:null,
                           objNumber:data.objNumber,
                           star:null,
                           street:null
                     }
+              },
+              created(){
+                const instance = axios.create({
+                  baseURL: 'http://ec2-54-88-87-181.compute-1.amazonaws.com:8889',
+                });
+
+                instance.get('posts',)
+                  .then(response => {
+                    console.log(response.data)
+                    this.apartments = response.data
+                  })
+                  .catch(response => {
+                    console.log(response)
+                  })
               },
               methods:{
                     to(id,photo,street,star,reviews,allPhoto,inf){
@@ -108,8 +75,6 @@
                           sessionStorage.setItem('street',street);
                           sessionStorage.setItem('star',star);
                           sessionStorage.setItem('reviews',reviews);
-                          sessionStorage.setItem('allPhoto',allPhoto);
-                          sessionStorage.setItem('inf',inf);
                           this.$router.push({name:'oneCatalog', params:{id:id}});
                     },
                     changesNumber(value){
@@ -118,13 +83,22 @@
                     changesStreet(value){
                            this.street = value
                     },
-                    replaceStreetInNumber(value){
+                    replaceStreetInNumber(value,number,simvol){
+                         if(value == null){
+                           return 0
+                         }
                          for(let i = 0;i < this.objNumber.length;i++){
                              if(this.objNumber[i].name == value){
+                                 if(simvol == '-'){
+                                    return number - this.objNumber[i].number
+                                 }
                                 return this.objNumber[i].number
                              }
                          }
-                    }
+                    },
+                    changeActiveModal(value){
+                        this.$emit('activeDoneFormModal', value)
+                    },
               },
               components:{
                 myAside:aside
@@ -218,4 +192,52 @@
                }
         }
   }
+  /*
+  [
+                                {
+                                      photo:'https://pulkovoairport.ru/r/_content/341d7a364367b658f7ed2ee3fb150944/vip1.jpg',
+                                      street:'Avenu 12 old east',
+                                      id:342,
+                                      star:'three',
+                                      reviews:7,
+                                },
+                                {
+                                      photo:'http://www.dekon.ru/files/pictures_fn_86.jpg',
+                                      star:'five',
+                                      id:421,
+                                      street:'Avenu 13 old east',
+                                      reviews:5,
+                                      inf:'',
+                                      allPhoto:[],
+                                },
+                                {
+                                      photo:'https://pulkovoairport.ru/r/_content/341d7a364367b658f7ed2ee3fb150944/vip1.jpg',
+                                      star:'two',
+                                      id:231,
+                                      street:'Avenu 14 old east',
+                                      reviews:1,
+                                      inf:'',
+                                      allPhoto:[],
+                                },
+                                {
+                                      photo:'http://www.dekon.ru/files/pictures_fn_86.jpg',
+                                      star:'one',
+                                      id:42,
+                                      street:'Avenu 15 old east',
+                                      reviews:0,
+                                      inf:'',
+                                      allPhoto:[],
+                                },
+                                {
+                                      photo:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSka6O511Zzze1LLxOfjnAdZOuW4ZlZG81Yu1CMN40XOiyeVtka7g',
+                                      star:'three',
+                                      id:543,
+                                      street:'Avenu 17 old east',
+                                      reviews:12,
+                                      inf:'',
+                                      allPhoto:[],
+                                }
+                          ]
+  */
 </style>
+

@@ -22,10 +22,10 @@
                   <div class="zacaz">
                       <div>
                           <div v-if="street == ''||street == null?false:true"><span style="font-weight: bold">Street</span> {{ street}}</div>
-                          <div>
-                              <ion-icon v-for="star in replaceStreetInNumber(star)" name="star"></ion-icon>
-                              <ion-icon v-for="star in 5 - replaceStreetInNumber(star)" name="star-outline"></ion-icon>
-                          </div>
+                        <div>
+                          <ion-icon v-for="(star,index) in replaceStreetInNumber(star)" :key="index" name="star"></ion-icon>
+                          <ion-icon v-for="(star,index) in replaceStreetInNumber(star, 5 , '-')" :key="index" name="star-outline"></ion-icon>
+                        </div>
                           <div>
                              <ion-icon name="contacts"></ion-icon>{{reviews}}
                           </div>
@@ -46,17 +46,15 @@
   import  header from './work/header.vue'
   import  navbar from './work/navbar.vue'
   import  calendar from './calendar.vue'
-  import modal from './modalYesOrNo.vue'
+  import modal from './modal/modalYesOrNo.vue'
   export default {
       name: 'app',
       data () {
           return {
               photo: null,
               street: null,
-              star: null,
+              star: 'five',
               reviews: null,
-              allPhoto: null,
-              inf: null,
               container:false,
               toValue:false,
               text:null,
@@ -75,8 +73,6 @@
           this.street = sessionStorage.getItem('street');
           this.star = sessionStorage.getItem('star');
           this.reviews = sessionStorage.getItem('reviews');
-          this.allPhoto = sessionStorage.getItem('allPhoto');
-          this.inf = sessionStorage.getItem('inf');
       },
       methods:{
           toNumber:function (simvol) {
@@ -93,6 +89,7 @@
               }
           },
           changeReverse(value){
+            console.log(value)
             this.reverseData = value
           },
           change(value){
@@ -119,20 +116,26 @@
           back(){
               this.$router.push({name:'catalogs'})
           },
-          replaceStreetInNumber(value){
+          replaceStreetInNumber(value,number,simvol){
+              if(value == null){
+                return 0
+              }
               for(let i = 0;i < this.objNumber.length;i++){
                   if(this.objNumber[i].name == value){
-                    return this.objNumber[i].number
+                      if(simvol == '-'){
+                        return number - this.objNumber[i].number
+                      }
+                      return this.objNumber[i].number
                   }
               }
-          }
+          },
       },
       components:{
           myFoot:footer,
           myHead:header,
           navbar:navbar,
           calendar:calendar,
-          modal:modal
+          modal:modal,
       },
   }
 </script>
