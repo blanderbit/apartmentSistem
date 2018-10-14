@@ -12,6 +12,7 @@
                                  one.star,
                                  one.reviews)">
                              </div>
+                           {{activeReloadPosts}}
                              <div class="infa-products">
                                    <div>
                                          <ion-icon v-for="(star,index) in replaceStreetInNumber(one.star)" :key="insex" name="star"></ion-icon>
@@ -47,6 +48,7 @@
   import axios from 'axios'
   Vue.use(filter)
         export default {
+              props:['activeReloadPosts'],
               data(){
                     return{
                           apartments:null,
@@ -56,20 +58,23 @@
                     }
               },
               created(){
-                const instance = axios.create({
-                  baseURL: 'http://ec2-54-88-87-181.compute-1.amazonaws.com:8889',
-                });
-
-                instance.get('posts',)
-                  .then(response => {
-                    console.log(response.data)
-                    this.apartments = response.data
-                  })
-                  .catch(response => {
-                    console.log(response)
-                  })
+                    this.posts()
               },
               methods:{
+                    posts:function(){
+                        const instance = axios.create({
+                            baseURL: 'http://ec2-54-88-87-181.compute-1.amazonaws.com:8889',
+                        });
+
+                        instance.get('posts',)
+                            .then(response => {
+                                console.log(response.data)
+                                this.apartments = response.data
+                            })
+                            .catch(response => {
+                                console.log(response)
+                            })
+                    },
                     to(id,photo,street,star,reviews,allPhoto,inf){
                           sessionStorage.setItem('photo',photo);
                           sessionStorage.setItem('street',street);
@@ -102,6 +107,11 @@
               },
               components:{
                 myAside:aside
+              },
+              watch:{
+                  activeReloadPosts:function(val){
+                      this.posts()
+                  }
               }
         }
 </script>

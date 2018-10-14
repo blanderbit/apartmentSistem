@@ -7,34 +7,43 @@
             Created ad
           </div>
         </div>
-        <div class="container-form-modal">
+        <div class="container-form-modal" >
             <ion-icon name="close" class="close" @click="close"></ion-icon>
-            <h3>
-              Create an ad
-            </h3>
-            <div class="field">
-                <label for="Street">Street</label>
-                <input v-model="street" :style="{background: streetRequire == 1? 'red':''}" id="Street" type="text"/>
-            </div>
-            <div class="field">
-                <div>
-                    <label for="range">Star</label>
-                    {{star}}
+            <div style="width: 100%" v-if="token == true?true:false">
+                <h3>
+                    Create an ad
+                </h3>
+                <div class="field">
+                    <label for="Street">Street</label>
+                    <input v-model="street" :style="{background: streetRequire == 1? 'red':''}" id="Street" type="text"/>
                 </div>
-                <input id="range" v-model="star" min="1" max="5" type="range" value="1">
+                <div class="field">
+                    <div>
+                        <label for="range">Star</label>
+                        {{star}}
+                    </div>
+                    <input id="range" v-model="star" min="1" max="5" type="range" value="1">
+                </div>
+                <div class="field">
+                    <label for="link">Url</label>
+                    <input v-model="link" :style="{background: linkRequire == 1? 'red':''}" id="link" type="text"/>
+                </div>
+                <form id="uploadForm" class="field uploadPhoto" >
+                    <label>
+                        <input type="file" name="UploadForm[imageFile]"  id="file">
+                        <span>Upload photo by ad</span>
+                    </label>
+                </form>
+                <button @click.prevent="create" :style="{background:button == 0?'royalblue':'red'}">create</button>
             </div>
-            <div class="field">
-                <label for="link">Url</label>
-                <input v-model="link" :style="{background: linkRequire == 1? 'red':''}" id="link" type="text"/>
+            <div class="modalIn" v-if="token != true?true:false">
+                <h3>This is important!</h3>
+                <p>Only registered users can create an ad!</p>
+                <div>
+                    <a href="#" style="margin-bottom: 10px" @click.prevent="to('login')">Sign in</a>
+                    <a href="#" @click.prevent="to('regisration')">Registration</a>
+                </div>
             </div>
-            {{link}}
-            <form id="uploadForm" class="field uploadPhoto" >
-                <label>
-                    <input type="file" name="UploadForm[imageFile]"  id="file">
-                    <span>Upload photo by ad</span>
-                </label>
-            </form>
-            <button @click.prevent="create" :style="{background:button == 0?'royalblue':'red'}">create</button>
         </div>
     </div>
 </template>
@@ -48,6 +57,32 @@
 
     .close:hover {
         color: darkred;
+    }
+    .modalIn{
+        position:relative;
+        width:100%;
+        text-align:center;
+
+    }
+    .modalIn div{
+        display: flex;flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .modalIn a {
+        width: 100%;
+        padding: 10px;
+        font-size: 15px;
+        background: darkmagenta;
+        color: white;
+        border-radius: 10px;
+        text-decoration: none;
+        text-align: center;
+        transition: all 1s;
+    }
+
+    .modalIn a:hover {
+        background: slateblue;
     }
 </style>
 <script>
@@ -64,8 +99,11 @@
               button: 0,
               ok:0,
               objNumber:data.objNumber,
-
+              token: null,
           }
+      },
+      created(){
+          this.token = sessionStorage.getItem('token') != null ? true : false
       },
       methods:{
           valids: function (valid, name, textEror) {
@@ -95,11 +133,12 @@
                       token:sessionStorage.getItem('token')
                   })
                   .then(response => {
-                      console.log(response)
                       let it = this
                       it.ok = 1
                       setTimeout(function () {
                           it.ok = 0
+                          it.close()
+                          it.$emit('reloadPosts',true)
                       },2000)
                   })
                   .catch(response => {
@@ -123,6 +162,8 @@
               }
           },
           close(){
+              let overlow =  document.querySelector('html')
+              overlow.style.overflowY = 'scroll';
               this.$emit('reverseModalClose', false)
           }
       },

@@ -73,8 +73,10 @@
               }
           },
           openModalCreateFormPost(){
+              let overlow =  document.querySelector('html')
+              overlow.style.overflowY = 'hidden';
               this.$emit('activeMiddleFormModal', true)
-          }
+          },
       }
   }
 </script>

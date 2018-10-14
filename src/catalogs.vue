@@ -1,9 +1,13 @@
 <template>
    <div id="app">
-       <modalForm @reverseModalClose="changeActive($event)" :style="{display:container == true?'flex':'none'}"></modalForm>
+       <modalForm @reverseModalClose="changeActive($event)"
+                  @reloadPosts="reloadPosts($event)"
+
+                  :style="{display:container == true?'flex':'none'}">
+       </modalForm>
        <myHead></myHead>
        <navbar></navbar>
-       <myMain @activeDoneFormModal="changeActive($event)" ></myMain>
+       <myMain :activeReloadPosts="reloads" @activeDoneFormModal="changeActive($event)" ></myMain>
       <myFoot></myFoot>
    </div>
 </template>
@@ -23,12 +27,18 @@
       name: 'app',
       data () {
           return {
-              container: false
+              container: false,
+              reloads:null,
+              count:1
           }
       },
       methods:{
           changeActive(value){
                this.container = value
+          },
+          reloadPosts(value){
+               this.count++
+               this.reloads = 'activeReloadPosts' + this.count
           },
       },
       created(){
