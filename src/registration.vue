@@ -1,5 +1,6 @@
 <template>
     <div class="Login">
+        <create @closeCreatePassword="change($event)" v-if="container == false?true:false"></create>
         <div class="containerform">
             <div class="form">
                 <form class="login-form">
@@ -8,6 +9,7 @@
                            :style="{border:nameRequire==0?'1px solid white':'1px solid red'}"/><br>
                     <input type="email" v-model="email" placeholder="Email"
                            :style="{border:emailRequire==0?'1px solid white':'1px solid red'}"/><br>
+                    <a href="#" class="buttonGanarated" @click.prevent="openCreatePassword">Do you want ganareted password?</a>
                     <input type="password" v-model="password"
                            :style="{border:passwordRequire==0?'1px solid white':'1px solid red'}" placeholder="Password"/>
                     <button @click.prevent="create" :style="{background:button == 0?'royalblue':'red'}">create</button>
@@ -36,9 +38,21 @@
         </div>
     </div>
 </template>
+<style>
+    .buttonGanarated{
+        color:lightgray;
+        text-decoration: none;
+        transition: all 0.1s;
+        font-weight: 700;
+    }
+    .buttonGanarated:hover{
+        color:rebeccapurple;
 
+    }
+</style>
 <script>
   import axios from 'axios'
+  import create from './generator2.vue'
   export default {
       data() {
           return {
@@ -53,8 +67,12 @@
               invalidButton: 0,
               emailRequire: 0,
               created:0,
-              button:0
+              button:0,
+              container:true
           }
+      },
+      components:{
+          create:create
       },
       created(){
           if(sessionStorage.getItem('token') != null){
@@ -127,6 +145,12 @@
                   it.button = 0;
               }, 2000)
           },
+          change(value){
+              this.container = value
+          },
+          openCreatePassword(){
+              this.container = false
+          }
       }
   }
 </script>

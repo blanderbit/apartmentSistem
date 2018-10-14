@@ -1,7 +1,7 @@
 <template>
   <div id="app">
       <div class="side">
-         <ion-icon @click="scrollTo('+')" v-show="down" name="arrow-down"></ion-icon>
+          <ion-icon @click="scrollTo('+')" v-show="down" name="arrow-down"></ion-icon>
           <ion-icon @click="scrollTo('-')" v-show="up" name="arrow-up"></ion-icon>
       </div>
       <router-view></router-view>

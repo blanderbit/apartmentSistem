@@ -15,8 +15,8 @@
                            {{activeReloadPosts}}
                              <div class="infa-products">
                                    <div>
-                                         <ion-icon v-for="(star,index) in replaceStreetInNumber(one.star)" :key="insex" name="star"></ion-icon>
-                                         <ion-icon v-for="(star,index) in replaceStreetInNumber(one.star, 5 , '-')" :key="insex" name="star-outline"></ion-icon>
+                                         <ion-icon v-for="(star,index) in replaceStreetInNumber(one.star)" :key="index + 'a'" name="star"></ion-icon>
+                                         <ion-icon v-for="(star,index) in replaceStreetInNumber(one.star, 5 , '-')" :key="index  + 'b'" name="star-outline"></ion-icon>
                                    </div>
                                    <div v-if="one.street == ''||one.street == null?false:true">
                                        <span style="font-weight: bold">

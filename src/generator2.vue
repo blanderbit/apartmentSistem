@@ -1,42 +1,46 @@
 <template>
     <div class="generator">
         <div class="containerGenerator">
-            <h3>Подобрать пароль</h3>
-            <div class="resultGenerator">
-                <div class="res">{{result}}</div>
-                <div class="buttonRes">
-                    <ion-icon name="refresh" @click="change"></ion-icon>
-                    <ion-icon name="copy" @click="copy" ></ion-icon>
+            <div class="containerGeneratorPadding">
+                <ion-icon name="close" class="closeGen" @click="close"></ion-icon>
+                <h3>Подобрать пароль</h3>
+                <div class="resultGenerator">
+                    <div class="res">{{result}}</div>
+                    <div class="buttonRes">
+                        <ion-icon name="refresh" @click="change"></ion-icon>
+                        <ion-icon name="copy" @click="copy" ></ion-icon>
+                    </div>
+                    <div class="massage" :class="{activeMassage:massage}">{{textMassage}}</div>
                 </div>
-                <div class="massage" :class="{activeMassage:massage}">{{textMassage}}</div>
-            </div>
-            <div class="params">
-                <div class="paramsInf">
-                    <label id="length">Длина</label>
-                    {{length}}
+                <div class="params">
+                    <div class="paramsInf">
+                        <label id="length">Длина</label>
+                        {{length}}
+                    </div>
+                    <input type="range" for="length" v-model="length" @click="change" @change="sbor" min="7" max="30" >
                 </div>
-                <input type="range" for="length" v-model="length" @click="change" @change="sbor" min="7" max="30" >
-            </div>
-            <div class="params">
-                <div class="paramsInf">
-                    <label id="wordLength" @click="change">Буквы</label>
-                    {{wordLength}}
+                <div class="params">
+                    <div class="paramsInf">
+                        <label id="wordLength" @click="change">Буквы</label>
+                        {{wordLength}}
+                    </div>
+                    <input type="range" for="wordLength" v-model="wordLength"  @change="sbor" min="1" max="10" >
                 </div>
-                <input type="range" for="wordLength" v-model="wordLength"  @change="sbor" min="1" max="10" >
-            </div>
-            <div class="params">
-                <div class="paramsInf">
-                    <label id="numberLength">Цыфры</label>
-                    {{numberLength}}
+                <div class="params">
+                    <div class="paramsInf">
+                        <label id="numberLength">Цыфры</label>
+                        {{numberLength}}
+                    </div>
+                    <input type="range" for="numberLength" v-model="numberLength" @click="change" @change="sbor" min="1" max="10" >
                 </div>
-                <input type="range" for="numberLength" v-model="numberLength" @click="change" @change="sbor" min="1" max="10" >
             </div>
         </div>
-        <slides></slides>
     </div>
 </template>
 <style>
     .generator{
+        z-index: 1000;
+        position:absolute;
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -47,8 +51,11 @@
     }
     .containerGenerator{
         width: 360px;
-        padding: 20px;
         background: skyblue;
+        position: relative;
+    }
+    .containerGeneratorPadding{
+        padding: 20px;
     }
     .resultGenerator{
         border-radius: 10px;
@@ -72,12 +79,16 @@
     .params{
         width: 100%;
         display: flex;
+        margin: 10px 0;
         flex-direction: column;
     }
     .params input[type='range']{
         -webkit-appearance: none;
         height: 3px;
         /*padding: 10px;*/
+    }
+    input{
+        margin: 10px 0;
     }
     input[type=range]:focus {
         outline: none;
@@ -118,15 +129,24 @@
     .activeMassage{
         opacity: 1;
     }
-    @media screen and (max-width: 720px){
-        .containerGenerator {
-            width: 100vw;
+    .closeGen{
+        position: absolute;
+        right: 5px;
+        top:5px;
+        cursor: pointer;
+    }
+    .closeGen:hover{
+        color: #FFFFFF;
+    }
+    @media screen and (max-width: 400px){
+        .containerGenerator{
+            width: 100vw
         }
     }
 </style>
 <script>
     export default {
-        name: 'app',
+        name: 'ganerate',
         data () {
             return {
                 alphabet:['A','a', 'E','e', 'I','i', 'O','o', 'U','u', 'Y','y','B','b', 'C','c', 'D','d',
@@ -185,6 +205,9 @@
                     its.massage = false
                 },2000)
                 return false;
+            },
+            close(){
+                this.$emit('closeCreatePassword',true)
             }
         },
         computed:{
