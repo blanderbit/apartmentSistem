@@ -45,9 +45,9 @@
               let style = elem.getBoundingClientRect().bottom
               let page = window.pageYOffset
               if(page > style){
-                elem.style.padding = 5 + 'px'
-              } else {
                 elem.style.padding = 20 + 'px'
+              } else {
+                elem.style.padding = 30 + 'px'
               }
           }
       },

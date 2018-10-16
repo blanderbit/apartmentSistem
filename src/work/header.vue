@@ -1,29 +1,5 @@
 <template>
     <header>
-        <!--<div class="container-header">-->
-            <!--<div class="logo">-->
-                <!--Booking-->
-            <!--</div>-->
-            <!--<div class="logoByProfil">-->
-                <!--<div class="helps">-->
-                    <!--<a href="#">Helps</a>-->
-                <!--</div>-->
-                <!--<div class="lang">-->
-                    <!--<a href="#">ru</a>-->
-                    <!--<a href="#">en</a>-->
-                <!--</div>-->
-                <!--<div class="profil" @click="open">-->
-                    <!--<div class="window">-->
-                        <!--<ul>-->
-                            <!--<li class="button" v-if="token != true?true:false" @click="to('login')" >Sign in</li>-->
-                            <!--<li class="button" v-if="token != true?true:false" @click="to('registration')">Registration</li>-->
-                            <!--<li class="button" v-if="token == true?true:false">ID:<span>{{idUser}}</span></li>-->
-                            <!--<li class="button" v-if="token == true?true:false" @click="logOut()">Log out</li>-->
-                        <!--</ul>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
         <div class="page-container md-layout-column" :class="{activePage:showNavigation == true || showSidepanel == true?true:false}">
             <md-toolbar class="md-primary" :class="{myToolbar:true}">
                 <md-button class="md-icon-button" :class="{myMenuActive:showNavigation == true?true:false}"
@@ -211,7 +187,9 @@
   .activePage{
     height: 100vh;
   }
-
+  .md-toolbar{
+      padding: 20px;
+  }
 
   /*work*/
   .window:after{

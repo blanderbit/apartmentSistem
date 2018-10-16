@@ -1,43 +1,47 @@
 <template>
     <section style="z-index: 0">
           <div class="containerAll">
-                 <myAside v-on:radioNumber="changesNumber($event)" @activeMiddleFormModal="changeActiveModal($event)"
-                          @streetName="changesStreet($event)" :ids="star"></myAside>
-                 <div class="container">
-                     <div class="spinner" v-if="loading == true?true:false"></div>
-                         <div>
-                             <div class="products" v-for="one in filterBy(filterBy(apartments,street),star)" :id="one.id">
-                                 <div class="photoProducts" :style="{backgroundImage:'url('+showUrlPhoto(one.photo_url)+')'}"
-                                      @click="to(one.id,
-                                     one.photo_url,
-                                     one.street,
-                                     one.star,
-                                     one.reviews)">
-                                 </div>
-                                 <div class="infa-products">
-                                     <div>
-                                         <ion-icon v-for="(star,index) in replaceStreetInNumber(one.star)" :key="index + 'a'" name="star"></ion-icon>
-                                         <ion-icon v-for="(star,index) in replaceStreetInNumber(one.star, 5 , '-')" :key="index  + 'b'" name="star-outline"></ion-icon>
-                                     </div>
-                                     <div v-if="one.street == ''||one.street == null?false:true">
-                                           <span style="font-weight: bold">
-                                                Street
-                                           </span>
-                                         {{ one.street}}
-                                     </div>
-                                     <div>
-                                         <ion-icon name="contacts"></ion-icon>{{one.reviews}}
-                                     </div>
-                                 </div>
-                               <md-button class="md-raised md-primary buttonProducts"
-                                          @click.prevent="to(one.id,
+                 <!--<myAside v-on:radioNumber="changesNumber($event)" @activeMiddleFormModal="changeActiveModal($event)"-->
+                          <!--@streetName="changesStreet($event)" :ids="star"></myAside>-->
+                 <div class="loading" v-if="loading == true?true:false">
+                     <div class="spinner"></div>
+                 </div>
+                  <v-layout class="products" v-for="one in filterBy(filterBy(apartments,street),star)">
+                      <v-flex>
+                          <v-card>
+                              <v-img
+                                      :src="showUrlPhoto(one.photo_url)"
+                                      aspect-ratio="2.75"
+                              ></v-img>
+
+                              <v-card-title primary-title>
+                                  <div>
+                                      <h3 class="headline mb-0">{{one.street}}</h3>
+                                      <div>
+                                          <ion-icon
+                                                  v-for="(star,index) in replaceStreetInNumber(one.star)"
+                                                  :key="index + 'a'" name="star">
+                                          </ion-icon>
+                                          <ion-icon
+                                                  v-for="(star,index) in replaceStreetInNumber(one.star, 5 , '-')"
+                                                  :key="index  + 'b'" name="star-outline">
+                                          </ion-icon>
+                                      </div>
+                                  </div>
+                              </v-card-title>
+
+                              <v-card-actions>
+                                  <v-btn flat color="orange">Share</v-btn>
+                                  <v-btn flat color="orange" @click.prevent="to(one.id,
                                  one.photo_url,
                                  one.street,
                                  one.star,
-                                 one.reviews)">Choose a number</md-button>
-                             </div>
-                        </div>
-                 </div>
+                                 one.reviews)">Choose a number</v-btn>
+                              </v-card-actions>
+                          </v-card>
+                      </v-flex>
+                  </v-layout>
+              <!--</div>-->
           </div>
     </section>
 </template>
@@ -136,20 +140,30 @@
 <style lang="scss">
   section{
         width: 100vw;
-        margin-top: 80px;
+        padding-top: 100px;
         display: flex;
         justify-content: center;
-        background: #ededed;
+        background: rgba(31, 192, 237,0.5);
   }
   section{
         .containerAll{
           margin: 0;
           width: 1200px;
           display: flex;
+            justify-content: center;
+          flex-wrap: wrap;
+            flex-grow: 3;
         }
   }
+  .loading{
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  }
   .container{
-        width: 75%;
+        width: 100%;
         padding: 20px;
   }
   .spinner{
@@ -161,14 +175,15 @@
     margin-left: auto;
     margin-right: auto;
   }
-  .container{
+
         .products{
-              display: flex;
-              align-items: stretch;
-              height: 200px;
-              border-bottom: 1px solid lightgray;
-              background: white;
+              width: 30%;
+              margin: 10px;
+            transition: all 0.3s;
+            font-size: 1em;
         }
+  .products:hover{
+      transform: scale(1.02,1.02);
   }
   .containerAll{
         position: relative;
@@ -197,28 +212,44 @@
           align-items: center;
         }
   }
+  @media screen and (max-width: 900px) {
+      .container {
+          width: 100%;
+          padding: 0px;
+          position: relative;
+      }
 
-  @media screen and (max-width: 900px){
-        .container{
-              width: 100%;
-              padding: 0px;
-            position: relative;
-        }
-        .container{
-               .products{
-                     height: 100px;
-               }
-         }
-        .products{
-              .infa-products,.infa-products div{
-                    padding:5px;
-                    font-size: 10px;
-              }
-        }
-        .spinner {
-              width: 75px;
-              height: 75px;
-        }
+      .products {
+          width: 35%;
+      }
+
+      .products {
+          .infa-products, .infa-products div {
+              padding: 5px;
+              font-size: 10px;
+          }
+      }
+      .spinner {
+          width: 75px;
+          height: 75px;
+      }
+  }
+  @media screen and (max-width: 720px){
+      .products{
+          width: 40%;
+      }
+  }@media screen and (max-width: 520px){
+      .products{
+          width: 50%;
+      }
+  }@media screen and (max-width: 420px){
+      .products{
+          width: 60%;
+      }
+  }@media screen and (max-width: 320px){
+      .products{
+          width: 100%;
+      }
   }
 </style>
 
