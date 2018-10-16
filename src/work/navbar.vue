@@ -4,9 +4,10 @@
       <ion-icon name="menu" class="icon pointer" @click="open"></ion-icon>
       <ul class="listsMenu">
         <li v-for="list in lists">
-          <a href="#" @click.prevent="to('main')" :class="{activeLiNav:active(list)}">
-            {{list}}
-          </a>
+          <!--<a href="#" @click.prevent="to('main')" :class="{activeLiNav:active(list)}">-->
+            <!--{{list}}-->
+          <!--</a>-->
+          <md-button class="md-primary">{{list}}</md-button>
         </li>
       </ul>
       <ion-icon class="icon pointer" @click="openAside" v-show="shows" name="search"></ion-icon>
@@ -109,6 +110,10 @@
 }
 </style>
 <script>
+  import Vue from 'vue'
+  import aside from './aside.vue'
+  import {MdButton} from 'vue-material/dist/components'
+  Vue.use(MdButton)
   export default{
     data(){
       return{

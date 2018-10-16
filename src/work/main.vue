@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section style="z-index: 0">
           <div class="containerAll">
                  <myAside v-on:radioNumber="changesNumber($event)" @activeMiddleFormModal="changeActiveModal($event)"
                           @streetName="changesStreet($event)" :ids="star"></myAside>
@@ -29,13 +29,12 @@
                                          <ion-icon name="contacts"></ion-icon>{{one.reviews}}
                                      </div>
                                  </div>
-                                 <div class="buttonProducts">
-                                     <a href="#" @click.prevent="to(one.id,
+                               <md-button class="md-raised md-primary buttonProducts"
+                                          @click.prevent="to(one.id,
                                  one.photo_url,
                                  one.street,
                                  one.star,
-                                 one.reviews)">Choose a number</a>
-                                 </div>
+                                 one.reviews)">Choose a number</md-button>
                              </div>
                         </div>
                  </div>
@@ -47,8 +46,11 @@
   import Vue from 'vue'
   import aside from './aside.vue'
   import filter from 'vue2-filters'
+  import {MdButton} from 'vue-material/dist/components'
+  import 'vue-material/dist/vue-material.min.css'
   import axios from 'axios'
   Vue.use(filter)
+  Vue.use(MdButton)
         export default {
               props:['activeReloadPosts'],
               data(){
@@ -119,7 +121,8 @@
                     }
               },
               components:{
-                myAside:aside
+                myAside:aside,
+                // 'md-button':MdButton
               },
               watch:{
                   activeReloadPosts:function(val){
@@ -133,12 +136,14 @@
 <style lang="scss">
   section{
         width: 100vw;
+        margin-top: 80px;
         display: flex;
         justify-content: center;
         background: #ededed;
   }
   section{
         .containerAll{
+          margin: 0;
           width: 1200px;
           display: flex;
         }
@@ -170,13 +175,13 @@
   }
   .products{
         .photoProducts{
-              width: 30%;
+              width: 100%;
               cursor: pointer;
               background-position: center;
               background-size: cover;
         }
         .infa-products{
-              width: 35%;
+              width: 100%;
               padding: 20px;
         }
         .infa-products{
@@ -185,20 +190,11 @@
               }
         }
         .buttonProducts{
-              width: 30%;
-              display: flex;
-              align-items: flex-end;
-              justify-content: center;
-        }
-        .buttonProducts{
-              a{
-                    width: 100%;
-                    text-align: center;
-                    padding: 20px;text-decoration: none;
-                    background: deeppink;
-                    color: white;
-                    font-weight: bold;
-              }
+              width: 100%;
+              align-self: flex-end;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
   }
 
@@ -218,15 +214,6 @@
                     padding:5px;
                     font-size: 10px;
               }
-              .buttonProducts a{
-                     width: 100%;
-                     text-align: center;
-                     font-size: 10px;
-                     padding: 10px;text-decoration: none;
-                     background: deeppink;
-                     color: white;
-                     font-weight: bold;
-               }
         }
         .spinner {
               width: 75px;

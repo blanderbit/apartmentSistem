@@ -6,7 +6,7 @@
                   :style="{display:container == true?'flex':'none'}">
        </modalForm>
        <myHead></myHead>
-       <navbar></navbar>
+       <!--<navbar></navbar>-->
        <myMain :activeReloadPosts="reloads" @activeDoneFormModal="changeActive($event)" ></myMain>
       <myFoot></myFoot>
    </div>
@@ -41,9 +41,14 @@
                this.reloads = 'activeReloadPosts' + this.count
           },
           scroller(){
-              let elem = document.querySelector('aside .asideContainer')
-              let style = getComputedStyle().top
-              elem.style.top = window.pageYOffset + 'px'
+              let elem = document.querySelector('.md-toolbar')
+              let style = elem.getBoundingClientRect().bottom
+              let page = window.pageYOffset
+              if(page > style){
+                elem.style.padding = 5 + 'px'
+              } else {
+                elem.style.padding = 20 + 'px'
+              }
           }
       },
       created(){
