@@ -24,6 +24,13 @@
                 </div>
             </div>
         </div>
+        <div class="modallogin" :style="{width:ok==0?'0':'100vw',
+              fontSize:ok==0?'0':'50px',
+              height:ok==0?'0':'100vh'}">
+            <div>
+              You are logged out
+            </div>
+        </div>
     </header>
 </template>
 
@@ -34,6 +41,7 @@
           return{
               idUser:sessionStorage.getItem('idUser'),
               token: null,
+              ok:0
           }
       },
       created(){
@@ -64,6 +72,11 @@
               sessionStorage.removeItem('token')
               this.token= sessionStorage.getItem('token') != null?true:false
               this.$emit('tokenHeader', this.token)
+              this.ok = 1;
+              let it = this;
+              setTimeout(function () {
+                it.ok = 0
+              },2000)
           },
           open(){
               if(window.innerWidth < 900) {

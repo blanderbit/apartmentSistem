@@ -30,11 +30,18 @@
                 </div>
                 <form id="uploadForm" class="field uploadPhoto" >
                     <label>
-                        <input type="file" name="UploadForm[imageFile]"  id="file">
-                        <span>Upload photo by ad</span>
+                        <input type="file" name="UploadForm[imageFile]" @change="retu" id="file">
+                        <span v-if="nativeLink != ''?false:true">Upload photo by ad</span>
+                        <span>
+                          {{nativeLink}}
+                        </span>
                     </label>
                 </form>
-                <button @click.prevent="create" :style="{background:button == 0?'royalblue':'red'}">create</button>
+                <button @click.prevent="create" :style="{background:button == 0?'royalblue':'red'}">
+                  <span v-show="loading == true?false:true">Create</span>
+                  <div class="spinnerLoginRagistration"
+                       v-show="loading == true?true:false"></div>
+                </button>
             </div>
             <div class="modalIn" v-if="token != true?true:false">
                 <h3>This is important!</h3>
@@ -100,6 +107,8 @@
               ok:0,
               objNumber:data.objNumber,
               token: null,
+              loading:false,
+              nativeLink:''
           }
       },
       created(){
@@ -117,6 +126,7 @@
               if(this.streetRequire > 0 || this.linkRequire > 0){
 
               } else {
+                  this.loading = true
                   let star = this.replaceStreetInNumber(this.star)
                   const instance = axios.create({
                       baseURL: 'http://ec2-54-88-87-181.compute-1.amazonaws.com:8889',
@@ -135,6 +145,7 @@
                   .then(response => {
                       let it = this
                       it.ok = 1
+                      this.loading = false
                       setTimeout(function () {
                           it.ok = 0
                           it.close()
@@ -144,6 +155,7 @@
                   .catch(response => {
                       console.log(response.response)
                       this.button = 1
+                      this.loading = false
                   })
               }
               let it = this
@@ -153,6 +165,18 @@
                   it.button = 0;
               },2000)
 
+          },
+          retu(value){
+              let elem = event.currentTarget
+              let arr = elem.value.split('\\')
+              let index = arr.indexOf('fakepath') + 1
+              let beforefinish = String(arr.splice(index))
+              let length = beforefinish.length
+              if(length < 20){
+                this.nativeLink = beforefinish
+              } else {
+                this.nativeLink = beforefinish.substr(0,10) + '...' + beforefinish.substr(length - 10,length)
+              }
           },
           replaceStreetInNumber(value){
               for(let i = 0;i < this.objNumber.length;i++){

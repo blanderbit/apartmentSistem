@@ -4,41 +4,40 @@
                  <myAside v-on:radioNumber="changesNumber($event)" @activeMiddleFormModal="changeActiveModal($event)"
                           @streetName="changesStreet($event)" :ids="star"></myAside>
                  <div class="container">
-                     <img src="../assets/45.gif">
-                     <div>
-                         <div class="products" v-for="one in filterBy(filterBy(apartments,street),star)" :id="one.id">
-                             <div class="photoProducts" :style="{backgroundImage:'url('+one.photo_url+')'}"
-                                  @click="to(one.id,
+                     <div class="spinner" v-if="loading == true?true:false"></div>
+                         <div>
+                             <div class="products" v-for="one in filterBy(filterBy(apartments,street),star)" :id="one.id">
+                                 <div class="photoProducts" :style="{backgroundImage:'url('+showUrlPhoto(one.photo_url)+')'}"
+                                      @click="to(one.id,
+                                     one.photo_url,
+                                     one.street,
+                                     one.star,
+                                     one.reviews)">
+                                 </div>
+                                 <div class="infa-products">
+                                     <div>
+                                         <ion-icon v-for="(star,index) in replaceStreetInNumber(one.star)" :key="index + 'a'" name="star"></ion-icon>
+                                         <ion-icon v-for="(star,index) in replaceStreetInNumber(one.star, 5 , '-')" :key="index  + 'b'" name="star-outline"></ion-icon>
+                                     </div>
+                                     <div v-if="one.street == ''||one.street == null?false:true">
+                                           <span style="font-weight: bold">
+                                                Street
+                                           </span>
+                                         {{ one.street}}
+                                     </div>
+                                     <div>
+                                         <ion-icon name="contacts"></ion-icon>{{one.reviews}}
+                                     </div>
+                                 </div>
+                                 <div class="buttonProducts">
+                                     <a href="#" @click.prevent="to(one.id,
                                  one.photo_url,
                                  one.street,
                                  one.star,
-                                 one.reviews)">
-                             </div>
-                             {{activeReloadPosts}}
-                             <div class="infa-products">
-                                 <div>
-                                     <ion-icon v-for="(star,index) in replaceStreetInNumber(one.star)" :key="index + 'a'" name="star"></ion-icon>
-                                     <ion-icon v-for="(star,index) in replaceStreetInNumber(one.star, 5 , '-')" :key="index  + 'b'" name="star-outline"></ion-icon>
-                                 </div>
-                                 <div v-if="one.street == ''||one.street == null?false:true">
-                                       <span style="font-weight: bold">
-                                            Street
-                                       </span>
-                                     {{ one.street}}
-                                 </div>
-                                 <div>
-                                     <ion-icon name="contacts"></ion-icon>{{one.reviews}}
+                                 one.reviews)">Choose a number</a>
                                  </div>
                              </div>
-                             <div class="buttonProducts">
-                                 <a href="#" @click.prevent="to(one.id,
-                             one.photo_url,
-                             one.street,
-                             one.star,
-                             one.reviews)">Choose a number</a>
-                             </div>
-                         </div>
-                     </div>
+                        </div>
                  </div>
           </div>
     </section>
@@ -57,7 +56,8 @@
                           apartments:null,
                           objNumber:data.objNumber,
                           star:null,
-                          street:null
+                          street:null,
+                          loading:null
                     }
               },
               created(){
@@ -65,14 +65,15 @@
               },
               methods:{
                     posts:function(){
+                        this.loading = true
                         const instance = axios.create({
                             baseURL: 'http://ec2-54-88-87-181.compute-1.amazonaws.com:8889',
                         });
 
                         instance.get('posts',)
                             .then(response => {
-                                console.log(response.data)
-                                this.apartments = response.data
+                                this.apartments = response.data.reverse()
+                                this.loading = false
                             })
                             .catch(response => {
                                 console.log(response)
@@ -107,6 +108,15 @@
                     changeActiveModal(value){
                         this.$emit('activeDoneFormModal', value)
                     },
+                    showUrlPhoto(value){
+                        let arr = value.split('.')
+                        if(arr.length == 5){
+                          return value
+                        } else {
+                          return 'http://japanalytic.com/wp-content/uploads/2017/10/No-Underlined.jpg'
+                        }
+
+                    }
               },
               components:{
                 myAside:aside
@@ -114,6 +124,7 @@
               watch:{
                   activeReloadPosts:function(val){
                       this.posts()
+                      return false
                   }
               }
         }
@@ -136,14 +147,26 @@
         width: 75%;
         padding: 20px;
   }
+  .spinner{
+    background-image: url('../assets/Spinner-1s-200px.svg');
+    background-size: contain;
+    width: 100px;
+    height: 100px;
+    color: red;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .container{
         .products{
               display: flex;
               align-items: stretch;
               height: 200px;
-              margin-bottom: 20px;
+              border-bottom: 1px solid lightgray;
               background: white;
         }
+  }
+  .containerAll{
+        position: relative;
   }
   .products{
         .photoProducts{
@@ -175,7 +198,7 @@
                     background: deeppink;
                     color: white;
                     font-weight: bold;
-            }
+              }
         }
   }
 
@@ -204,6 +227,10 @@
                      color: white;
                      font-weight: bold;
                }
+        }
+        .spinner {
+              width: 75px;
+              height: 75px;
         }
   }
 </style>

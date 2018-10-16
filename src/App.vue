@@ -62,23 +62,31 @@ export default {
       },
   },
   created(){
-    let locations = location.pathname.split("/")
-    // if (locations.slice(1, 2).toString() != '') {
-    //   if (locations.length == 2) {
-    //     // this.routs(locations.slice(1, 2).toString())
-    //   } else if (locations.length == 3) {
-    //     // this.routs(locations.slice(1, 2).toString(), locations.slice(2, 3).toString())
-    //   }
-    // }else{
-    //   // this.routs("login")
-    // }
-      this.$router.push({name:locations[1]});
+      let locations = location.pathname.split("/")[1]
+      let arr = this.$router.options.routes
+      for(let i = 0; i < arr.length; i++){
+          let path = arr[i].path.split('/')
+          if(arr.length > 2){
+              if(path[1] == locations){
+                  this.$router.push({name:path[1],params:{id:path[2]}})
+              }
+              if(i == arr.length -1 && path[1] != locations){
+                  this.$router.push({name:'catalogs'});
+              }
+          } else {
+              if(path[1] == locations){
+                  this.$router.push({name:path[1]})
+              }
+              if(i == arr.length -1 && path[1] != locations){
+                  this.$router.push({name:'catalogs'});
+              }
+          }
+      }
   },
   mounted(){
       window.addEventListener('wheel',this.scroller);
       window.addEventListener('scroll',this.scroller);
   },
-
 }
 </script>
 
@@ -110,5 +118,15 @@ body, html{
   color: deeppink;
   background: white;
   /*opacity: 1;*/
+}
+body::-webkit-scrollbar{
+  width: 5px;
+  background: url("/src/assets/scroll.png");
+}
+body::-webkit-scrollbar-thumb{
+  width: 5px;
+  background: lightblue;
+  border-radius: 10px;
+  height: 1px;
 }
 </style>

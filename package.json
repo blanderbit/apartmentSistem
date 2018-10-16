@@ -13,6 +13,7 @@
     "axios": "^0.18.0",
     "vue": "^2.5.11",
     "vue-filters": "^0.1.6",
+    "vue-material": "^1.0.0-beta-10.2",
     "vue-router": "^3.0.1",
     "vue2-event-calendar": "^0.4.4",
     "vue2-filters": "^0.3.0"

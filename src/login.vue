@@ -10,7 +10,10 @@
                            :style="{border:emailRequire==0?'1px solid white':'1px solid red'}"/><br>
                     <input type="password" v-model="password"
                          :style="{border:passwordRequire==0?'1px solid white':'1px solid red'}" placeholder="Password"/>
-                    <button @click.prevent="signIn" :style="{background:button == 0?'royalblue':'red'}">Login</button>
+                    <button @click.prevent="signIn" :style="{background:button == 0?'royalblue':'red'}">
+                          <span v-if="loading == true?false:true">Login</span>
+                          <div class="spinnerLoginRagistration" v-else="loading == true?true:false"></div>
+                    </button>
                     <p class="message" @click.prevent="Registration">
                         Not registred?
                         <a href="#">
@@ -50,7 +53,8 @@
               passwordRequire:0,
               ok:0,
               emailRequire:0,
-              button:0
+              button:0,
+              loading:false
           }
       },
       created(){
@@ -75,6 +79,7 @@
               if (this.error.length> 0){
                  this.allEroors = 1;
               } else {
+                  this.loading = true
                   const instance = axios.create({
                     baseURL: 'http://ec2-54-88-87-181.compute-1.amazonaws.com:8889',
                   });
@@ -85,6 +90,7 @@
                           password: this.password
                       })
                       .then(response => {
+                          this.loading = false
                           sessionStorage.setItem('token',response.data.token)
                           this.ok = 1;
                           let it = this;
@@ -93,6 +99,7 @@
                           },2000)
                       })
                       .catch(response => {
+                        this.loading = false
                       let email = response.response.data.email
                       if(email != null && Array.isArray(email)){
                           for(let i = 0; i < email.length;i++){

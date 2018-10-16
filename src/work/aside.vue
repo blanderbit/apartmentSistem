@@ -177,6 +177,8 @@
             .containerSearch{
                 display: flex;
                 padding: 10px;
+                align-items: center;
+
             }
             .containerSearch ion-icon[name="star"]{
                 color:deeppink;
@@ -190,8 +192,10 @@
   @media screen and (max-width: 900px){
     aside{
       position: absolute;
-        bottom:50px;
+        margin: 0;
+        padding: 0;
         width: 300px;
+        left: 100%;
         right: -100%;
         transition: all 1s;
         z-index: 1000;

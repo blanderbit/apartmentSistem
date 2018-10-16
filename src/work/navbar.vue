@@ -9,7 +9,7 @@
           </a>
         </li>
       </ul>
-      <ion-icon class="icon pointer" @click="openAside" name="search"></ion-icon>
+      <ion-icon class="icon pointer" @click="openAside" v-show="shows" name="search"></ion-icon>
     </div>
   </div>
 </template>
@@ -74,6 +74,7 @@
   @media screen and (max-width: 900px){
       .m-container{
           justify-content: space-between;
+        width: 100%;
       }
       .listsMenu{
         position: absolute;
@@ -112,7 +113,8 @@
     data(){
       return{
         pathTo:localStorage.getItem('path'),
-        lists:['Air tickts', 'Railway tickets', 'Bus', 'Office', 'Hotel','Transport', 'Tour']
+        lists:['Air tickts', 'Railway tickets', 'Bus', 'Office', 'Hotel','Transport', 'Tour'],
+        shows:false
       }
     },
     methods:{
@@ -129,7 +131,7 @@
           }
           else {
             target.style.transform = 'rotate(180deg)';
-            elem.style.left = '-725px';
+            elem.style.left = '-100%';
           }
         }
       },
@@ -161,10 +163,12 @@
                     if (number < 0) {
                         target.style.transform = 'rotate(90deg)';
                         elem.style.right = '0px';
+                        elem.style.left = '0px';
                     }
                     else {
                         target.style.transform = 'rotate(0deg)';
                         elem.style.right = '-100%';
+                        elem.style.left = '100%';
                     }
                 }
             }
@@ -172,6 +176,7 @@
     },
     mounted(){
       window.addEventListener('resize',this.hendleResize);
+      this.shows = this.$router.history.current.name == 'catalogs'?true:false
     },
     beforeDestroy(){
       window.removeEventListener('resize',this.hendleResize);

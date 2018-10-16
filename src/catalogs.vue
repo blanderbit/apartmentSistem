@@ -40,9 +40,19 @@
                this.count++
                this.reloads = 'activeReloadPosts' + this.count
           },
+          scroller(){
+              let elem = document.querySelector('aside .asideContainer')
+              let style = getComputedStyle().top
+              elem.style.top = window.pageYOffset + 'px'
+          }
       },
       created(){
         localStorage.setItem('path','Office')
+      },
+      mounted(){
+        window.addEventListener('wheel',this.scroller);
+        window.addEventListener('scroll',this.scroller);
+
       },
       components:{
           myFoot:footer,

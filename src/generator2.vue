@@ -24,14 +24,14 @@
                         <label id="wordLength" @click="change">Буквы</label>
                         {{wordLength}}
                     </div>
-                    <input type="range" for="wordLength" v-model="wordLength"  @change="sbor" min="1" max="10" >
+                    <input type="range" for="wordLength" v-model="wordLength"  @change="sbor" min="3" max="10" >
                 </div>
                 <div class="params">
                     <div class="paramsInf">
                         <label id="numberLength">Цыфры</label>
                         {{numberLength}}
                     </div>
-                    <input type="range" for="numberLength" v-model="numberLength" @click="change" @change="sbor" min="1" max="10" >
+                    <input type="range" for="numberLength" v-model="numberLength" @click="change" @change="sbor" min="3" max="10" >
                 </div>
             </div>
         </div>
@@ -75,6 +75,12 @@
         display: flex;
         align-self: center;
         flex-direction: column;
+    }
+    .buttonRes ion-icon{
+      cursor: pointer;
+    }
+    .buttonRes ion-icon:hover{
+      color: white
     }
     .params{
         width: 100%;

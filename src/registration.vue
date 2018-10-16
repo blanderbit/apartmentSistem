@@ -12,7 +12,10 @@
                     <a href="#" class="buttonGanarated" @click.prevent="openCreatePassword">Do you want ganareted password?</a>
                     <input type="password" v-model="password"
                            :style="{border:passwordRequire==0?'1px solid white':'1px solid red'}" placeholder="Password"/>
-                    <button @click.prevent="create" :style="{background:button == 0?'royalblue':'red'}">create</button>
+                    <button @click.prevent="create" :style="{background:button == 0?'royalblue':'red'}">
+                          <span v-show="loading == true?false:true">Create</span>
+                          <div class="spinnerLoginRagistration" v-show="loading == true?true:false"></div>
+                    </button>
                     <p class="message">
                         You have account?
                         <a href="#" @click.prevent="login">
@@ -68,7 +71,8 @@
               emailRequire: 0,
               created:0,
               button:0,
-              container:true
+              container:true,
+              loading: false
           }
       },
       components:{
@@ -98,6 +102,8 @@
               if (this.error.length > 0) {
                   this.allEroors = 1;
               } else {
+                  this.loading = true
+                console.log('loading')
                   const instance = axios.create({
                       baseURL: 'http://ec2-54-88-87-181.compute-1.amazonaws.com:8889',
                   });
@@ -122,17 +128,21 @@
                               else{
                                   this.created = 1
                                   let it = this;
+                                  this.loading = false
                                   setTimeout(function () {
                                       it.created = 0
                                       it.$router.push({name:'login'})
                                   }, 2000)
                               }
+                            this.loading = false
                           }else{
                             console.log(response.status)
+                            this.loading = false
                           }
                       })
                       .catch(response => {
                           console.log(response.response.data)
+                        this.loading = false
                       })
               }
               let it = this;

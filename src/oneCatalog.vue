@@ -33,7 +33,7 @@
                       <a class="buttonTo" @click.prevent="toNumber" href="#">Choose a number</a>
                   </div>
                   <div class="contsainerPhotoId">
-                      <img class="idphoto" :src="photo">
+                      <img class="idphoto" :src="ShowPhoto(photo)">
                       <div class="rules">
                           <p>Types of lease agreements There are three main types of
                               lease agreements, and they are divided according to which services are
@@ -144,6 +144,14 @@
                   }
               }
           },
+          ShowPhoto(value){
+              let arr = value.split('.')
+              if(arr.length == 5){
+                return value
+              } else {
+                return 'http://japanalytic.com/wp-content/uploads/2017/10/No-Underlined.jpg'
+              }
+          }
       },
       components:{
           myFoot:footer,
@@ -195,7 +203,8 @@
       margin: 20px 0;
   }
   .rules{
-      width: 50%
+      width: 50%;
+      margin-right: 10px;
   }
   .rules p{
       padding: 10px;
