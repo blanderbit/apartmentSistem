@@ -26,13 +26,28 @@
                           <ion-icon v-for="(star,index) in replaceStreetInNumber(star)" :key="index" name="star"></ion-icon>
                           <ion-icon v-for="(star,index) in replaceStreetInNumber(star, 5 , '-')" :key="index" name="star-outline"></ion-icon>
                         </div>
-                          <div>
-                             <ion-icon name="contacts"></ion-icon>{{reviews}}
-                          </div>
+                          <!--<div>-->
+                             <!--<ion-icon name="contacts"></ion-icon>{{reviews}}-->
+                          <!--</div>-->
                       </div>
                       <a class="buttonTo" @click.prevent="toNumber" href="#">Choose a number</a>
                   </div>
-                  <img class="idphoto" :src="photo">
+                  <div class="contsainerPhotoId">
+                      <img class="idphoto" :src="photo">
+                      <div class="rules">
+                          <p>Types of lease agreements There are three main types of
+                              lease agreements, and they are divided according to which services are
+                              included in the rental price:
+                          </p>
+                          <p>Types of lease agreements There are three main types of
+                              lease agreements, and they are divided according to which services are
+                              included in the rental price:
+                          </p><p>Types of lease agreements There are three main types of
+                              lease agreements, and they are divided according to which services are
+                              included in the rental price:
+                          </p>
+                      </div>
+                  </div>
                   <calendar @object="change($event)" :reverse="reverseData"></calendar>
               </div>
           </div>
@@ -158,19 +173,19 @@
   }
   .back{
       width: 200px;
-      padding: 20px;
-      background: lightcoral;
+      padding: 10px;
+      background: slateblue;
       border-radius: 10px;
-      box-shadow: 1px 1px 1px 1px gainsboro;
+      color:white
   }
   .back{
       a{
           text-transform: capitalize;
-          color: rebeccapurple;
+          color: white;
           font-weight: bold;
       }
       a:hover{
-          color: slateblue;
+          color: lightgray;
       }
   }
   .containerCatalogId{
@@ -179,9 +194,18 @@
       background: white;
       margin: 20px 0;
   }
+  .rules{
+      width: 50%
+  }
+  .rules p{
+      padding: 10px;
+  }
+  .contsainerPhotoId{
+      display: flex;justify-content: space-between;padding: 0 20px;width: 100%
+  }
   .idphoto{
-      width: 100%;
-      height: 500px;
+      width:50%;
+      height: 300px;
       cursor: pointer;
   }
   .zacaz{
@@ -206,6 +230,7 @@
   @media screen and (max-width: 1350px){
       .containerAll{
           width: 100%;
+
       }
       .containerCatalogId{
           padding: 0;
@@ -220,6 +245,38 @@
       .buttonTo{
           width: 60px;
           padding: 10px;
+      }
+  }
+  @media screen and (max-width: 720px){
+      .contsainerPhotoId{
+          flex-direction: column;
+          padding:0;
+      }
+      .rules{
+          width: 100%
+      }
+      .idphoto{
+          width:100%;
+      }
+      .containerAll{
+          margin: 0;
+      }
+      .containerCatalogId{
+          margin: 0;
+      }
+  }
+  @media screen and (max-width: 420px){
+      .idphoto{
+          height:200px;
+      }
+      .back {
+          width: 100%;
+          border-radius: 0;
+          box-shadow: none;
+      }
+  }@media screen and (max-width:320px){
+      .idphoto{
+          height:150px;
       }
   }
 </style>

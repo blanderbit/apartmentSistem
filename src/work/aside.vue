@@ -85,6 +85,7 @@
   aside{
       width: 25%;
       padding: 20px;
+
   }
   aside{
       .asideContainer{
@@ -188,7 +189,12 @@
 
   @media screen and (max-width: 900px){
     aside{
-      display: none;
+      position: absolute;
+        bottom:50px;
+        width: 300px;
+        right: -100%;
+        transition: all 1s;
+        z-index: 1000;
     }
   }
 </style>

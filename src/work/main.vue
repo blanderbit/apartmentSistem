@@ -4,29 +4,31 @@
                  <myAside v-on:radioNumber="changesNumber($event)" @activeMiddleFormModal="changeActiveModal($event)"
                           @streetName="changesStreet($event)" :ids="star"></myAside>
                  <div class="container">
-                       <div class="products" v-for="one in filterBy(filterBy(apartments,street),star)" :id="one.id">
+                     <img src="../assets/45.gif">
+                     <div>
+                         <div class="products" v-for="one in filterBy(filterBy(apartments,street),star)" :id="one.id">
                              <div class="photoProducts" :style="{backgroundImage:'url('+one.photo_url+')'}"
-                                 @click="to(one.id,
+                                  @click="to(one.id,
                                  one.photo_url,
                                  one.street,
                                  one.star,
                                  one.reviews)">
                              </div>
-                           {{activeReloadPosts}}
+                             {{activeReloadPosts}}
                              <div class="infa-products">
-                                   <div>
-                                         <ion-icon v-for="(star,index) in replaceStreetInNumber(one.star)" :key="index + 'a'" name="star"></ion-icon>
-                                         <ion-icon v-for="(star,index) in replaceStreetInNumber(one.star, 5 , '-')" :key="index  + 'b'" name="star-outline"></ion-icon>
-                                   </div>
-                                   <div v-if="one.street == ''||one.street == null?false:true">
+                                 <div>
+                                     <ion-icon v-for="(star,index) in replaceStreetInNumber(one.star)" :key="index + 'a'" name="star"></ion-icon>
+                                     <ion-icon v-for="(star,index) in replaceStreetInNumber(one.star, 5 , '-')" :key="index  + 'b'" name="star-outline"></ion-icon>
+                                 </div>
+                                 <div v-if="one.street == ''||one.street == null?false:true">
                                        <span style="font-weight: bold">
                                             Street
                                        </span>
-                                       {{ one.street}}
-                                   </div>
-                                   <div>
-                                        <ion-icon name="contacts"></ion-icon>{{one.reviews}}
-                                   </div>
+                                     {{ one.street}}
+                                 </div>
+                                 <div>
+                                     <ion-icon name="contacts"></ion-icon>{{one.reviews}}
+                                 </div>
                              </div>
                              <div class="buttonProducts">
                                  <a href="#" @click.prevent="to(one.id,
@@ -35,7 +37,8 @@
                              one.star,
                              one.reviews)">Choose a number</a>
                              </div>
-                       </div>
+                         </div>
+                     </div>
                  </div>
           </div>
     </section>
@@ -180,6 +183,7 @@
         .container{
               width: 100%;
               padding: 0px;
+            position: relative;
         }
         .container{
                .products{
@@ -202,52 +206,5 @@
                }
         }
   }
-  /*
-  [
-                                {
-                                      photo:'https://pulkovoairport.ru/r/_content/341d7a364367b658f7ed2ee3fb150944/vip1.jpg',
-                                      street:'Avenu 12 old east',
-                                      id:342,
-                                      star:'three',
-                                      reviews:7,
-                                },
-                                {
-                                      photo:'http://www.dekon.ru/files/pictures_fn_86.jpg',
-                                      star:'five',
-                                      id:421,
-                                      street:'Avenu 13 old east',
-                                      reviews:5,
-                                      inf:'',
-                                      allPhoto:[],
-                                },
-                                {
-                                      photo:'https://pulkovoairport.ru/r/_content/341d7a364367b658f7ed2ee3fb150944/vip1.jpg',
-                                      star:'two',
-                                      id:231,
-                                      street:'Avenu 14 old east',
-                                      reviews:1,
-                                      inf:'',
-                                      allPhoto:[],
-                                },
-                                {
-                                      photo:'http://www.dekon.ru/files/pictures_fn_86.jpg',
-                                      star:'one',
-                                      id:42,
-                                      street:'Avenu 15 old east',
-                                      reviews:0,
-                                      inf:'',
-                                      allPhoto:[],
-                                },
-                                {
-                                      photo:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSka6O511Zzze1LLxOfjnAdZOuW4ZlZG81Yu1CMN40XOiyeVtka7g',
-                                      star:'three',
-                                      id:543,
-                                      street:'Avenu 17 old east',
-                                      reviews:12,
-                                      inf:'',
-                                      allPhoto:[],
-                                }
-                          ]
-  */
 </style>
 

@@ -9,7 +9,7 @@
           </a>
         </li>
       </ul>
-      <div class="icon two-icon"></div>
+      <ion-icon class="icon pointer" @click="openAside" name="search"></ion-icon>
     </div>
   </div>
 </template>
@@ -71,37 +71,40 @@
     display: none;
     transition: all 1.2s;
   }
-  @media screen and (max-width: 720px){
-    .listsMenu{
-      position: absolute;
-      text-align: left;
-      flex-direction: column;
-      background: white;
-      width: 100%;
-      left:-100%;
-      border-bottom: 1px solid lightgray;
-    }
-    .icon{
-      display:block
-    }
-    .two-icon{
-      position: absolute;
-      right: 0px;
-      top:0px;
-    }
-    .listsMenu  a:hover{
-      background: hotpink;
-      color:white;
-    }
-    .listsMenu  a {
-      width: 100%;
-      padding: 5px;
-      box-sizing: border-box;
-      display: inline-block;
-    }
-    .listsMenu li{
-      padding: 0;
-    }
+  @media screen and (max-width: 900px){
+      .m-container{
+          justify-content: space-between;
+      }
+      .listsMenu{
+        position: absolute;
+        text-align: left;
+        flex-direction: column;
+        background: white;
+        width: 100%;
+        left:-100%;
+        border-bottom: 1px solid lightgray;
+      }
+      .icon{
+        display:block
+      }
+      .two-icon{
+        position: absolute;
+        right: 0px;
+        top:0px;
+      }
+      .listsMenu  a:hover{
+        background: hotpink;
+        color:white;
+      }
+      .listsMenu  a {
+        width: 100%;
+        padding: 5px;
+        box-sizing: border-box;
+        display: inline-block;
+      }
+      .listsMenu li{
+        padding: 0;
+      }
 }
 </style>
 <script>
@@ -114,7 +117,7 @@
     },
     methods:{
       open:function(){
-        if(window.innerWidth < 720) {
+        if(window.innerWidth < 900) {
           let target = event.target;
           let elem = event.target.nextElementSibling;
           let style = getComputedStyle(elem).left;
@@ -135,7 +138,7 @@
       },
       hendleResize:function(){
         let elem = document.querySelector('.listsMenu');
-        if(window.innerWidth > 720){
+        if(window.innerWidth > 900){
           elem.style.display = 'flex';
           elem.style.borderBottom = 'none';
         }
@@ -146,6 +149,26 @@
       to:function(name){
         this.$router.push({name:name});
       },
+        openAside(){
+            let rout =  this.$router.history.current.name =='catalogs'
+            if(rout == true){
+                if(window.innerWidth < 900) {
+                    let target = event.target;
+                    let elem =  document.querySelector('aside');
+                    let style = getComputedStyle(elem).right;
+                    let position = style.indexOf('p');
+                    let number = style.substr(0, position);
+                    if (number < 0) {
+                        target.style.transform = 'rotate(90deg)';
+                        elem.style.right = '0px';
+                    }
+                    else {
+                        target.style.transform = 'rotate(0deg)';
+                        elem.style.right = '-100%';
+                    }
+                }
+            }
+        }
     },
     mounted(){
       window.addEventListener('resize',this.hendleResize);
