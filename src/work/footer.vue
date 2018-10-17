@@ -34,13 +34,13 @@
 
     height="auto" class="indigo lighten-1"
   >
-    <div style="width: 1200px">
+    <div class="containerFooter">
       <v-card flat tile class="text-xs-center indigo lighten-1">
         <v-card-text>
 
             <a href="#" v-for="logo in sdolialLofo">
               <v-btn><ion-icon :name="logo"></ion-icon> </v-btn>
-              </a>
+            </a>
 
         </v-card-text>
 
@@ -76,119 +76,14 @@
 </script>
 
 <style lang="scss">
-  
-  footer{
-      width: 100vw;
-      background: white;
-      color:grey;
-      display: flex;
-      justify-content: center;
+  .indigo.lighten-1{
+    background-color: #448aff!important;
   }
-  .head_footer{
-      padding: 20px;
-      width:1200px;
-      display: flex;
-      flex-direction:column;
-      align-items: center;
-      font-style: italic;
-  }
-  .contant_footer > div{
-      width: auto;
-      padding: 10px;
-  }
-  .contant_footer{
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      width: 100%;
-      font-size: 15px;
-  }
-  .head_footer hr{
-      width: 100%;
-      border: none;
-      height: 1px;
-      background: pink;
-  }
-  .head ul li{
-      float:left;
-      list-style: none;
-  }
-  .clear{
-      clear: both;
-  }
-  .contant_footer a{
-      text-decoration: none;
-      color: deeppink;
-  }
-  .contant_footer a:hover{
-      color: #670770;
-      text-decoration: underline;
-  }
-  .list{
-      flex-direction: column;
-  }
-  .list .containarList,.list .containerSponsor {
-      display: flex;
-      text-align: left;
-  }
-  .list .containarList div{
-      margin-right: 10px;
 
-  }.list .containerSponsor div{
-       margin-right: 10px;
-      width: 100px;
-      height: 100px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-   }
-  .contant_footer span{
-      font-weight: bold;
-      font-size: 20px;
-  }
-  .down{
-      display: flex;
-      justify-content: space-between;
-      color: gray;
-      align-items: center;
-  }
-  .socialFooter{
-     display: flex;
-      flex-direction: column;
-  }
-  .contantSotialFooter{
-     display: flex;
-  }
-  .socialFooter p{
-     margin-top: 0;
-  }
-  .contantSotialFooter a{
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     padding: 10px;
-     background: grey;
-     color: white;
-     border-radius: 50%;
-     margin: 2px
-   }
-  @media screen and (max-width: 720px){
-      .head_footer{
-           padding: 10px;
-      }
-      .contant_footer{
-          font-size: 10px;
-      }
-      .contantSotialFooter a{
-           padding: 5px;
-      }
-      .list .containerSponsor div{
-           width: 50px;
-           height: 50px;
-      }
-      .list .containarList{
-          flex-wrap: wrap;
-      }
+  .containerFooter{
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
   }
 </style>
 

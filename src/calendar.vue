@@ -29,7 +29,7 @@
                         <div>{{one.name}}</div>
                         <span style="color: darkgrey">{{'('+one.inf+')'}}</span>
                     </td>
-                    <td class="appartment flex" v-for="(two,index2) in day"
+                    <td class="appartment Tdflex" v-for="(two,index2) in day"
                         :class="{activeflex:index2 == its2?true:false}">
                         <table class="order" :class="{orderActive:its == index?true:false}">
                             <tr v-for="three in timeBefore13">
@@ -375,7 +375,7 @@
         text-align: center;
         vertical-align: middle;
     }
-    .flex {
+    .Tdflex {
        display: flex;
        justify-content: center;
     }

@@ -1,13 +1,12 @@
 <template>
-   <div id="app">
+   <div id="catalogMain">
        <modalForm @reverseModalClose="changeActive($event)"
                   @reloadPosts="reloadPosts($event)"
 
                   :style="{display:container == true?'flex':'none'}">
        </modalForm>
-       <myHead></myHead>
-       <!--<navbar></navbar>-->
-       <myMain :activeReloadPosts="reloads" @activeDoneFormModal="changeActive($event)" ></myMain>
+       <myHead @activeFormModal="changeActive($event)"></myHead>
+       <myMain :activeReloadPosts="reloads" ></myMain>
       <myFoot></myFoot>
    </div>
 </template>
@@ -19,7 +18,6 @@
   import VueRouter from 'vue-router'
   import  footer from './work/footer.vue'
   import  header from './work/header.vue'
-  import  navbar from './work/navbar.vue'
   import  main from './work/main.vue'
   import  modalForm from './modal/formModal.vue'
   Vue.use(VueRouter)
@@ -40,16 +38,6 @@
                this.count++
                this.reloads = 'activeReloadPosts' + this.count
           },
-          scroller(){
-              let elem = document.querySelector('.md-toolbar')
-              let style = elem.getBoundingClientRect().bottom
-              let page = window.pageYOffset
-              if(page > style){
-                elem.style.padding = 20 + 'px'
-              } else {
-                elem.style.padding = 30 + 'px'
-              }
-          }
       },
       created(){
         localStorage.setItem('path','Office')
@@ -57,14 +45,23 @@
       mounted(){
         window.addEventListener('wheel',this.scroller);
         window.addEventListener('scroll',this.scroller);
-
+      },
+      beforeDestroy(){
+        window.removeEventListener('wheel',this.scroller);
+        window.removeEventListener('scroll',this.scroller);
       },
       components:{
           myFoot:footer,
           myHead:header,
-          navbar:navbar,
           myMain:main,
           modalForm:modalForm,
       }
   }
 </script>
+<style>
+  .buttonFilters{
+    transition: all 0.5s;
+    left:10%;top: 100px
+  }
+
+</style>

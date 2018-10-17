@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="containerAllByOne">
       <modal :value="toValue"
              :activeContainer="container"
              :remove="position"
@@ -11,45 +11,74 @@
           <span slot="a">{{position[0]}}</span>
       </modal>
       <myHead @tokenHeader="changeToken($event)"></myHead>
-      <navbar></navbar>
-      <section>
-          <div class="containerAll containerAllByOne">
-              <div class="back">
-                <a href="#" @click.prevent="back">{{path[0]}}</a>
-                <span>/ {{path[1]}}</span>
-              </div>
-              <div class="containerCatalogId">
-                  <div class="zacaz">
-                      <div>
-                          <div v-if="street == ''||street == null?false:true"><span style="font-weight: bold">Street</span> {{ street}}</div>
-                        <div>
-                          <ion-icon v-for="(star,index) in replaceStreetInNumber(star)" :key="index" name="star"></ion-icon>
-                          <ion-icon v-for="(star,index) in replaceStreetInNumber(star, 5 , '-')" :key="index" name="star-outline"></ion-icon>
-                        </div>
-                          <!--<div>-->
-                             <!--<ion-icon name="contacts"></ion-icon>{{reviews}}-->
-                          <!--</div>-->
-                      </div>
-                      <a class="buttonTo" @click.prevent="toNumber" href="#">Choose a number</a>
-                  </div>
-                  <div class="contsainerPhotoId">
-                      <img class="idphoto" :src="ShowPhoto(photo)">
-                      <div class="rules">
-                          <p>Types of lease agreements There are three main types of
-                              lease agreements, and they are divided according to which services are
-                              included in the rental price:
-                          </p>
-                          <p>Types of lease agreements There are three main types of
-                              lease agreements, and they are divided according to which services are
-                              included in the rental price:
-                          </p><p>Types of lease agreements There are three main types of
-                              lease agreements, and they are divided according to which services are
-                              included in the rental price:
-                          </p>
-                      </div>
-                  </div>
-                  <calendar @object="change($event)" :reverse="reverseData"></calendar>
-              </div>
+      <section class="containerAllByOne">
+          <div class="containerBy">
+              <!--<div class="back">-->
+                <!--<a href="#" @click.prevent="back">{{path[0]}}</a>-->
+                <!--<span>/ {{path[1]}}</span>-->
+              <!--</div>-->
+              <!--<div class="containerCatalogId">-->
+                  <!--<div class="zacaz">-->
+                      <!--<div>-->
+                          <!--<div v-if="street == ''||street == null?false:true"><span style="font-weight: bold">Street</span> {{ street}}</div>-->
+                        <!--<div>-->
+                          <!--<ion-icon v-for="(star,index) in replaceStreetInNumber(star)" :key="index" name="star"></ion-icon>-->
+                          <!--<ion-icon v-for="(star,index) in replaceStreetInNumber(star, 5 , '-')" :key="index" name="star-outline"></ion-icon>-->
+                        <!--</div>-->
+                          <!--&lt;!&ndash;<div>&ndash;&gt;-->
+                             <!--&lt;!&ndash;<ion-icon name="contacts"></ion-icon>{{reviews}}&ndash;&gt;-->
+                          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                      <!--</div>-->
+                      <!--<a class="buttonTo" @click.prevent="toNumber" href="#">Choose a number</a>-->
+                  <!--</div>-->
+                  <!--<div class="contsainerPhotoId">-->
+                      <!--<img class="idphoto" :src="ShowPhoto(photo)">-->
+                      <!--<div class="rules">-->
+                          <!--<p>Types of lease agreements There are three main types of-->
+                              <!--lease agreements, and they are divided according to which services are-->
+                              <!--included in the rental price:-->
+                          <!--</p>-->
+                          <!--<p>Types of lease agreements There are three main types of-->
+                              <!--lease agreements, and they are divided according to which services are-->
+                              <!--included in the rental price:-->
+                          <!--</p><p>Types of lease agreements There are three main types of-->
+                              <!--lease agreements, and they are divided according to which services are-->
+                              <!--included in the rental price:-->
+                          <!--</p>-->
+                      <!--</div>-->
+                  <!--</div>-->
+                  <!--&lt;!&ndash;<calendar @object="change($event)" :reverse="reverseData"></calendar>&ndash;&gt;-->
+              <!--</div>-->
+              <v-layout style="width: 100%">
+                  <v-flex>
+                      <v-card>
+                          <v-img
+                              :src="ShowPhoto(photo)"
+                              aspect-ratio="2.75"
+                          ></v-img>
+
+                          <v-card-title primary-title>
+                              <div>
+                                  <h3 class="headline mb-0">{{street}}</h3>
+                                  <div>
+                                      <ion-icon style="color:#448aff"
+                                                v-for="(star,index) in replaceStreetInNumber(star)"
+                                                :key="index + 'a'" name="star">
+                                      </ion-icon>
+                                      <ion-icon
+                                        v-for="(star,index) in replaceStreetInNumber(star, 5 , '-')"
+                                        :key="index  + 'b'" name="star-outline">
+                                      </ion-icon>
+                                  </div>
+                              </div>
+                          </v-card-title>
+
+                          <v-card-actions>
+
+                          </v-card-actions>
+                      </v-card>
+                  </v-flex>
+              </v-layout>
           </div>
       </section>
       <myFoot></myFoot>
@@ -59,7 +88,6 @@
 <script>
   import  footer from './work/footer.vue'
   import  header from './work/header.vue'
-  import  navbar from './work/navbar.vue'
   import  calendar from './calendar.vue'
   import modal from './modal/modalYesOrNo.vue'
   export default {
@@ -156,7 +184,6 @@
       components:{
           myFoot:footer,
           myHead:header,
-          navbar:navbar,
           calendar:calendar,
           modal:modal,
       },
@@ -164,20 +191,19 @@
 </script>
 
 <style lang="scss">
-  section{
+  .containerAllByOne{
       width: 100vw;
       display: flex;
       justify-content: center;
       background: #ededed;
+      padding-top: 80px;
+      min-height: calc(100vh - 209px);
   }
-  .containerAll{
+  .containerBy{
        margin-top: 20px;
-      width: 1200px;
-      display: flex;
+      max-width: 1200px;
+      display: flex; flex-direction: column;
 
-  }
-  .containerAllByOne{
-     flex-direction: column;
   }
   .back{
       width: 200px;
@@ -251,10 +277,10 @@
           padding: 5px;
           font-size: 10px;
       }
-      .buttonTo{
-          width: 60px;
-          padding: 10px;
-      }
+      /*.buttonTo{*/
+          /*width: 60px;*/
+          /*padding: 10px;*/
+      /*}*/
   }
   @media screen and (max-width: 720px){
       .contsainerPhotoId{
@@ -270,9 +296,6 @@
       .containerAll{
           margin: 0;
       }
-      .containerCatalogId{
-          margin: 0;
-      }
   }
   @media screen and (max-width: 420px){
       .idphoto{
@@ -283,6 +306,12 @@
           border-radius: 0;
           box-shadow: none;
       }
+    .containerBy{
+      margin-top: 0px;
+    }
+    .containerCatalogId{
+      margin: 0;
+    }
   }@media screen and (max-width:320px){
       .idphoto{
           height:150px;
