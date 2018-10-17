@@ -13,6 +13,17 @@
       <myHead @tokenHeader="changeToken($event)"></myHead>
       <section class="containerAllByOne">
           <div class="containerBy">
+              <template>
+                  <div>
+                      <v-breadcrumbs>
+                          <v-icon slot="divider">forward</v-icon>
+                          <v-breadcrumbs-item v-for="item in path" style="cursor: pointer"
+                                              :disabled="item.disabled" :key="item.text">
+                          {{ item.text }}
+                          </v-breadcrumbs-item>
+                      </v-breadcrumbs>
+                  </div>
+              </template>
               <!--<div class="back">-->
                 <!--<a href="#" @click.prevent="back">{{path[0]}}</a>-->
                 <!--<span>/ {{path[1]}}</span>-->
@@ -74,7 +85,7 @@
                           </v-card-title>
 
                           <v-card-actions>
-
+                              <calendar @object="change($event)" :reverse="reverseData"></calendar>
                           </v-card-actions>
                       </v-card>
                   </v-flex>
@@ -104,14 +115,37 @@
               reverseData:null,
               h1:null,
               position:[],
-              path:null,
+              path:[],
               objNumber:data.objNumber,
               newToken:null
-
           }
       },
       created(){
-          this.path = this.$router.history.current.fullPath.split('/').splice(1)
+          let link = this.$router.history.current.fullPath.split('/')
+          for(let i = 0;i<link.length;i++){
+              if(i == link.length){
+                  let obj = {
+                      text:link[i],
+                      disabled:true
+                  }
+                  this.path.push(obj)
+              }else{
+                  if(link[i]==""){
+                      let obj = {
+                          text:'Home',
+                          disabled:false
+                      }
+                      this.path.push(obj)
+                  } else {
+                      let obj = {
+                          text:link[i],
+                          disabled:false
+                      }
+                      this.path.push(obj)
+                  }
+              }
+          }
+          console.log(this.path)
           this.photo = sessionStorage.getItem('photo');
           this.street = sessionStorage.getItem('street');
           this.star = sessionStorage.getItem('star');
@@ -195,15 +229,15 @@
       width: 100vw;
       display: flex;
       justify-content: center;
-      background: #ededed;
+      background: white;
       padding-top: 80px;
       min-height: calc(100vh - 209px);
   }
   .containerBy{
-       margin-top: 20px;
-      max-width: 1200px;
+       margin: 20px 0;
+      width: 1200px;
       display: flex; flex-direction: column;
-
+      box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
   }
   .back{
       width: 200px;
