@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--</div>-->
+<!--<div>-->
+<!--<table class="containerCalendar ">-->
+<!--<tr class="appartment caption">-->
+<!--<ion-icon name="arrow-round-back" @click="week(9,7,'-')"></ion-icon>-->
+<!--<td colspan="5" class="center">{{month}}</td>-->
+<!--<ion-icon name="arrow-round-forward" @click="week(9,7,'+')"></ion-icon>-->
+<!--</tr>-->
+<!--<tr class="downCalendar" >-->
+<!--<td  class="center day centerDay">Комнаты</td>-->
+<!--<td v-for="(dayOne,index) in day" class="center centerDay"-->
+<!--:class="{activeDay:indexDay == index && dayOne.number == thisDay?true:false,-->
+<!--activecenterDay:index == its2?true:false}">-->
+<!--<ion-icon name="arrow-round-back" class="noneArrow" @click="dayChange('-')"></ion-icon>-->
+<!--{{dayOne.number}} {{dayOne.day}}-->
+<!--<ion-icon name="arrow-round-forward" class="noneArrow" @click="dayChange('+')"></ion-icon>-->
+<!--</td>-->
+<!--</tr>-->
+<!--<tr class="downCalendar" v-for="(one,index) in apartment">-->
+<!--<td colspan="2" class="appartment center nameApartment" @click="change(index)"-->
+<!--:style="{color:one.color}">-->
+<!--<div>{{one.name}}</div>-->
+<!--<span style="color: darkgrey">{{'('+one.inf+')'}}</span>-->
+<!--</td>-->
+<!--<td class="appartment Tdflex" v-for="(two,index2) in day"-->
+<!--:class="{activeflex:index2 == its2?true:false}">-->
+<!--<table class="order" :class="{orderActive:its == index?true:false}">-->
+<!--<tr v-for="three in timeBefore13">-->
+<!--<td @click="time(three,one.name,two.day,two.number)"-->
+<!--:style="{background:one.color}"-->
+<!--:class="{active:infOrder(three,one.name,two.day,two.number)}">-->
+<!--{{three}}-->
+<!--<ion-icon style="font-size: 12px" name="add"></ion-icon>-->
+<!--</td>-->
+<!--</tr>-->
+<!--</table>-->
+<!--<table class="order" :class="{orderActive:its == index?true:false}">-->
+<!--<tr v-for="three in timeAftere13">-->
+<!--<td class="activeOrder" @click="time(three,one.name,two.day,two.number)"-->
+<!--:style="{background:one.color}"-->
+<!--:class="{active:infOrder(three,one.name,two.day,two.number)}">-->
+<!--{{three}}-->
+<!--<ion-icon style="font-size: 12px" name="add"></ion-icon>-->
+<!--</td>-->
+<!--</tr>-->
+<!--</table>-->
+<!--</td>-->
+<!--</tr>-->
+<!--</table>-->
+<!--</div>-->
+</body>
+<script>
+  //                      month: 'June',
+  //                      allMonth:[],
+  //                      nameMonth: data.nameMonth,
+  //                      day: [
+  //                            {day: 'Monday', number: null}, {day: 'Tuesday', number: null}, {day: 'Webnesday', number: null},
+  //                            {day: 'Thursday', number: null}, {day: 'Fridey', number: null}
+  //                        ],
+  //                  dayChange(simvol){
+  //                      if(simvol == '+'){
+  //                          this.its2++;
+  //                          if(this.its2 > 4){
+  //                              this.its2 = 4;
+  //                          }
+  //                      }else{
+  //                          this.its2--;
+  //                          if(this.its2 == -1){
+  //                             this.its2 = 0;
+  //                          }
+  //                      }
+  //                  },
+  //                  change(number){
+  //                     this.its = number;
+  //                  },
+
+
+  //test
+  //                  week(months,step,simvol){
+  //                      this.its2 = 0
+  //                      if(step != undefined){
+  //                          if(simvol == '+'){
+  //                              this.start = Number(this.start + step);
+  //                              this.steps = Number(this.steps +  step);
+  //                          }else{
+  //                              this.start = Number(this.start - step);
+  //                              this.steps = Number(this.steps - step);
+  //                          }
+  //                      }
+  //                      let arr = [];
+  //                      for(let i = this.start;i<this.steps;i++ ){
+  //                        // this.allMonth[monthes];
+  //                        // if(this.allMonth[monthes].days[i] == undefined){
+  //                        if(31== undefined){
+  //                          return;
+  //                        }
+  //                        arr.push(this.allMonth[months].days[i].day);
+  //                      }
+  //                      for(let j = 0;j < 5;j++){
+  //                        let number = arr[j]
+  //                        this.day[j].number = number;
+  //                      }
+  //                  },
+
+
+  //work
+  //                  calendarBig: function (year, month, day) {
+  //                      this.monthes = month;
+  //                      this.indexDay = day - 1;
+  //                      this.month = this.nameMonth[month].month;
+  //                      let arr = [];
+  //                      for (let m = 0; m <= 11; m++) {
+  //                          let Day = new Date(year, [m]);
+  //                          let DlastForMonth = new Date(Day.getFullYear(), Day.getMonth() + 1, 0).getDate(),
+  //                              DNlast = new Date(Day.getFullYear(), Day.getMonth(), DlastForMonth).getDay(),
+  //                              DNfirst = new Date(Day.getFullYear(), Day.getMonth(), 1).getDay();
+  //                          let obj = {
+  //                              month: String(Day).split(' ')[1],
+  //                              nDay: DlastForMonth,
+  //                              lastDay: DNlast,
+  //                              firstDay: DNfirst,
+  //                              days: []
+  //                          }
+  //                          arr.push(obj);
+  //                          let number = DNfirst;
+  //                          for (let i = 1; i <= DlastForMonth; i++) {
+  //                              if (number == 7) {
+  //                                  number = 'v';
+  //                              }
+  //                              let daysObj = {
+  //                                  day: i,
+  //                                  numder: number,
+  //                              }
+  //                              obj.days.push(daysObj);
+  //                              if (number == 'v') {
+  //                                  number = 0;
+  //                              }
+  //                              number++;
+  //                          }
+  //
+  //                      }
+  //                      this.allMonth = arr;
+  //                      this.week(month);
+  //                  },
+  function createCalendar(id, year, month) {
+//                  var elem = document.getElementById(id);
+//
+//                  var mon = month - 1; // месяцы в JS идут от 0 до 11, а не от 1 до 12
+//                  var d = new Date(year, mon);
+//
+//                  var table = '<table><tr><th>пн</th><th>вт</th><th>ср</th><th>чт</th><th>пт</th><th>сб</th><th>вс</th></tr><tr>';
+//
+//                  // заполнить первый ряд от понедельника
+//                  // и до дня, с которого начинается месяц
+//                  // * * * | 1  2  3  4
+//                  for (var i = 0; i < getDay(d); i++) {
+//                    table += '<td></td>';
+//                  }
+//
+//                  // ячейки календаря с датами
+//                  while (d.getMonth() == mon) {
+//                    table += '<td>' + d.getDate() + '</td>';
+//
+//                    if (getDay(d) % 7 == 6) { // вс, последний день - перевод строки
+//                      table += '</tr><tr>';
+//                    }
+//
+//                    d.setDate(d.getDate() + 1);
+//                  }
+//
+//                  // добить таблицу пустыми ячейками, если нужно
+//                  if (getDay(d) != 0) {
+//                    for (var i = getDay(d); i < 7; i++) {
+//                      table += '<td></td>';
+//                    }
+//                  }
+//
+//                  // закрыть таблицу
+//                  table += '</tr></table>';
+//
+//                  // только одно присваивание innerHTML
+//                  elem.innerHTML = table;
+//                }
+//
+//                function getDay(date) { // получить номер дня недели, от 0(пн) до 6(вс)
+//                  var day = date.getDay();
+//                  if (day == 0) day = 7;
+//                  return day - 1;
+//                }
+//
+//                createCalendar("calendar2", 2018, 10)
+  },
+</script>
+</html>

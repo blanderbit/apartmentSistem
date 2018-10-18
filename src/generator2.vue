@@ -47,11 +47,11 @@
         justify-content: center;
         width: 100vw;
         height: 100vh;
-        background:  rgba(0, 0, 0, 0.56);;
+        background:  rgba(0, 0, 0, 0.56);
     }
     .containerGenerator{
         width: 360px;
-        background: skyblue;
+        background:  white;
         position: relative;
     }
     .containerGeneratorPadding{
@@ -104,6 +104,7 @@
         height: 8.4px;
         cursor: pointer;
         animate: 0.2s;
+      background: #448aff;
         /*box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;*/
         /*background: #3071a9;*/
         border-radius: 1.3px;

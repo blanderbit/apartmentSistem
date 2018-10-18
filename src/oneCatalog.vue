@@ -24,42 +24,6 @@
                       </v-breadcrumbs>
                   </div>
               </template>
-              <!--<div class="back">-->
-                <!--<a href="#" @click.prevent="back">{{path[0]}}</a>-->
-                <!--<span>/ {{path[1]}}</span>-->
-              <!--</div>-->
-              <!--<div class="containerCatalogId">-->
-                  <!--<div class="zacaz">-->
-                      <!--<div>-->
-                          <!--<div v-if="street == ''||street == null?false:true"><span style="font-weight: bold">Street</span> {{ street}}</div>-->
-                        <!--<div>-->
-                          <!--<ion-icon v-for="(star,index) in replaceStreetInNumber(star)" :key="index" name="star"></ion-icon>-->
-                          <!--<ion-icon v-for="(star,index) in replaceStreetInNumber(star, 5 , '-')" :key="index" name="star-outline"></ion-icon>-->
-                        <!--</div>-->
-                          <!--&lt;!&ndash;<div>&ndash;&gt;-->
-                             <!--&lt;!&ndash;<ion-icon name="contacts"></ion-icon>{{reviews}}&ndash;&gt;-->
-                          <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                      <!--</div>-->
-                      <!--<a class="buttonTo" @click.prevent="toNumber" href="#">Choose a number</a>-->
-                  <!--</div>-->
-                  <!--<div class="contsainerPhotoId">-->
-                      <!--<img class="idphoto" :src="ShowPhoto(photo)">-->
-                      <!--<div class="rules">-->
-                          <!--<p>Types of lease agreements There are three main types of-->
-                              <!--lease agreements, and they are divided according to which services are-->
-                              <!--included in the rental price:-->
-                          <!--</p>-->
-                          <!--<p>Types of lease agreements There are three main types of-->
-                              <!--lease agreements, and they are divided according to which services are-->
-                              <!--included in the rental price:-->
-                          <!--</p><p>Types of lease agreements There are three main types of-->
-                              <!--lease agreements, and they are divided according to which services are-->
-                              <!--included in the rental price:-->
-                          <!--</p>-->
-                      <!--</div>-->
-                  <!--</div>-->
-                  <!--&lt;!&ndash;<calendar @object="change($event)" :reverse="reverseData"></calendar>&ndash;&gt;-->
-              <!--</div>-->
               <v-layout style="width: 100%">
                   <v-flex>
                       <v-card>
@@ -166,7 +130,6 @@
               }
           },
           changeReverse(value){
-            console.log(value)
             this.reverseData = value
           },
           change(value){
@@ -229,6 +192,7 @@
       width: 100vw;
       display: flex;
       justify-content: center;
+    align-items: flex-start;
       background: white;
       padding-top: 80px;
       min-height: calc(100vh - 209px);
@@ -237,7 +201,7 @@
        margin: 20px 0;
       width: 1200px;
       display: flex; flex-direction: column;
-      box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+    box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
   }
   .back{
       width: 200px;

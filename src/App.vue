@@ -1,8 +1,12 @@
 <template>
   <div id="app">
       <div class="side">
-          <ion-icon @click="scrollTo('+')" v-show="down" name="arrow-down"></ion-icon>
-          <ion-icon @click="scrollTo('-')" v-show="up" name="arrow-up"></ion-icon>
+           <v-btn color="red" @click="scrollTo('+')" v-show="down" fab dark>
+             <ion-icon name="arrow-down"></ion-icon>
+           </v-btn>
+            <v-btn @click="scrollTo('-')" color="red" v-show="up" fab dark>
+              <ion-icon name="arrow-up"></ion-icon>
+            </v-btn>
       </div>
       <router-view></router-view>
   </div>
@@ -59,9 +63,10 @@ export default {
           }
       },
       scroller:function(){
+          let downYpage = document.querySelector('footer').getBoundingClientRect().top
           let scroll = window.pageYOffset;
           scroll > 0?this.up = true:this.up = false;
-          scroll > this.downYpage? this.down = false:this.down = true;
+          scroll > downYpage? this.down = false:this.down = true;
       },
   },
   created(){
@@ -69,7 +74,7 @@ export default {
       let arr = this.$router.options.routes
       for(let i = 0; i < arr.length; i++){
           let path = arr[i].path.split('/')
-          if(arr.length > 2){
+          if(path.length > 2){
               if(path[1] == locations){
                   this.$router.push({name:path[1],params:{id:path[2]}})
               }
@@ -77,8 +82,9 @@ export default {
                   this.$router.push({name:'catalogs'});
               }
           } else {
-              if(path[1] == locations){
+              if(path[1] == locations){console.log(path[1] , locations)
                   this.$router.push({name:path[1]})
+                  break
               }
               if(i == arr.length -1 && path[1] != locations){
                   this.$router.push({name:'catalogs'});
@@ -102,25 +108,10 @@ body, html{
 .side{
   position: fixed;
   right: 0;
-  top:45%;
+  bottom:5px;
   display: flex;
   z-index: 1000;
   flex-direction: column-reverse;
-}
-.side ion-icon {
-  padding: 10px;
-  border: 1px solid white;
-  color: black;
-  border-radius: 50%;
-  cursor: pointer;
-  background: pink;
-  opacity: 0.6;
-}
-.side ion-icon:hover{
-  border: 1px solid black;
-  color: deeppink;
-  background: white;
-  /*opacity: 1;*/
 }
 body::-webkit-scrollbar{
   width: 5px;

@@ -4,7 +4,7 @@
             <ion-icon name="close" class="close" @click="close"></ion-icon>
             <h1>
                 <slot name="h1"></slot>
-            </h1>
+            </h1><br>
             <p>
                 <slot name="information"></slot>
             </p>
@@ -19,7 +19,7 @@
             <p>Only registered users can book a room!</p>
             <div style="display: flex">
                 <a href="#" style="margin-bottom: 10px" @click.prevent="to('login')">Sign in</a>
-                <a href="#" @click.prevent="to('regisration')">Registration</a>
+                <a href="#" @click.prevent="to('registration')">Registration</a>
             </div>
         </div>
     </div>
@@ -91,7 +91,6 @@
     .modal {
         z-index: 1500;
         position: fixed;
-        color: white;
         padding: 0;
         width: 0;
         height: 0;
@@ -100,6 +99,7 @@
         left: 50%;
         transition: all 1s;
         display: flex;
+        color:#448aff;
         justify-content: center;
         flex-direction: column;
         align-items: center;
@@ -108,7 +108,7 @@
   .modal {
       div {
           transition: all 1s;
-          background: rgb(237, 17, 197);
+          background: white;
           padding: 0;
           width: 0;
           font-size: 0;
@@ -123,7 +123,7 @@
       a {
           width: 0;
           padding: 0;
-          background: darkmagenta;
+          background: #448aff;
           color: white;
           border-radius: 10px;
           text-decoration: none;
@@ -133,7 +133,7 @@
       }
 
       a:hover {
-         background: slateblue;
+         background: darkblue;
       }
       p {
           width: 0;
